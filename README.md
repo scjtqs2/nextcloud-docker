@@ -28,4 +28,23 @@
 
 > 请在config.php中添加一行 `'overwriteprotocol' => 'https',`
 
+### nginx 反向代理的部分片段
+````nginx
+   location = /.well-known/carddav {
+      return 301 $scheme://$host:$server_port/remote.php/dav;
+    }
+    location = /.well-known/caldav {
+      return 301 $scheme://$host:$server_port/remote.php/dav;
+    }
+location / {
+         proxy_http_version 1.1;
+#        proxy_redirect off;
+          proxy_pass http://asus:9080;
+         proxy_set_header Host $http_host;
+         proxy_set_header X-Forwarded-Proto $scheme;
+         proxy_set_header X-Real-IP $remote_addr;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+ }
 
+````
