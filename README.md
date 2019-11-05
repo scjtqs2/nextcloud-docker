@@ -12,3 +12,4 @@
 
 > 'check_data_directory_permissions' => false,     #检查数据目录权限
 
+> docker-compose.yml中对应的目录地址，请全部修改为win下对应的本地目录地址
