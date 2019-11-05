@@ -5,6 +5,7 @@
 
 > docker-compose up -d
 
+
 ## 关闭
 
 > docker-compose down
@@ -16,3 +17,10 @@
 > 'check_data_directory_permissions' => false,     #检查数据目录权限
 
 > docker-compose.yml中对应的目录地址，请全部修改为win下对应的本地目录地址
+
+## 一些默认参数
+
+> nextcloud安装时的数据库地址，将“localhost”改成db,用户root，密码root。
+
+> nginx 的反向代理配置需要自己写了，我这里就没有预制了。
+
