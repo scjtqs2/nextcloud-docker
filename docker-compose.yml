@@ -1,0 +1,97 @@
+version: '3'
+services:
+
+  nginx:
+    container_name: nginx
+    hostname: nginx
+    image: nginx:latest
+    ports:
+      - 800:80
+      - 8443:443
+    networks:
+      - cloud_net
+    restart: always
+    volumes:
+      - ./nextcloud:/usr/share/nginx/html
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./ssl:/etc/certs
+      - ./nginx/log:/var/log/nginx
+  db:
+    container_name: nextcloud_db
+    image: mariadb
+    restart: always
+    hostname: db
+    ports:
+      - 3308:3306
+    networks:
+      - cloud_net
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+#      - ./mysql/conf:/etc/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=nextcloud
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+  nextcloud_web:
+    image: nextcloud:apache
+    container_name: nextcloud_web
+    hostname: nextcloud_web
+    depends_on:
+      - redis
+      - db
+    environment:
+      - UID=1000
+      - GID=1000
+      - UPLOAD_MAX_SIZE=10G
+      - APC_SHM_SIZE=128M
+      - OPCACHE_MEM_SIZE=128
+      - CRON_PERIOD=15m
+      - TZ=Aisa/Shanghai
+      - DOMAIN=cloud.scjtqs.com
+      - DB_TYPE=mysql
+      - DB_NAME=nextcloud
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_HOST=db
+    ports:
+      - 9080:80/tcp
+    networks:
+      - cloud_net
+    volumes:
+      - ./nextcloud:/var/www/html
+      - /mnt/sas/nas/nextcloud:/nextcloud
+
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    hostname: redis
+    restart: always
+    networks:
+      - cloud_net
+
+    expose:
+      - 6379
+    restart: always
+
+  onlyoffice:
+    image: onlyoffice/documentserver
+    container_name: onlyoffice
+    hostname: onlyoffice
+    environment:
+      - REDIS_SERVER_HOST=redis
+      - REDIS_SERVER_PORT=6379
+    volumes:
+      - ./onlyoffice/data:/var/www/onlyoffice/Data
+      - ./onlyoffice/logs:/var/log/onlyoffice
+    restart: always
+    ports:
+      - 9081:80/tcp
+    networks:
+      - cloud_net
+
+networks:
+  cloud_net:
