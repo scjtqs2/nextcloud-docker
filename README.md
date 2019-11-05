@@ -28,6 +28,8 @@
 
 > 请在config.php中添加一行 `'overwriteprotocol' => 'https',`
 
+> `'overwrite.cli.url' => 'https://your.domain.com:8443',`//此处写上完整的对外域名
+
 ### nginx 反向代理的部分片段
 ````nginx
    location = /.well-known/carddav {
