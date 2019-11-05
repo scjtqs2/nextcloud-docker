@@ -39,7 +39,7 @@
 location / {
          proxy_http_version 1.1;
 #        proxy_redirect off;
-          proxy_pass http://asus:9080;
+          proxy_pass http://182.168.50.127:9080;
          proxy_set_header Host $http_host;
          proxy_set_header X-Forwarded-Proto $scheme;
          proxy_set_header X-Real-IP $remote_addr;
