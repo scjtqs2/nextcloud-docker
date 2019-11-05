@@ -24,3 +24,8 @@
 
 > nginx 的反向代理配置需要自己写了，我这里就没有预制了。
 
+## 关于使用 nginx 反向代理nextcloud自带的apache并对外使用https的一些建议：
+
+> 请在config.php中添加一行 `'overwriteprotocol' => 'https',`
+
+
