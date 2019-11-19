@@ -50,3 +50,10 @@ location / {
  }
 
 ````
+
+# 升级流程
+> docker-compose 升级镜像真tm方便：
+> 1、docker-compose down 停止服务
+> 2、docker-compose pull 更新image
+> 3、docker-compose up -d 启动服务
+> 3、docker image prune 删除旧的镜像
