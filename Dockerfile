@@ -60,7 +60,7 @@ RUN apt-get update; \
         python-pip \
         ; \
         pip install youtube-dl \
-        touch /aria2.session; \
+        echo ' '> /aria2.session; \
         rm -rf /var/lib/apt/lists/*
         
 COPY aria2.conf /
