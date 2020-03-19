@@ -58,6 +58,7 @@ RUN apt-get update; \
         apt-get install -y --no-install-recommends \
         aria2 \
         ; \
+        touch /aria2.session; \
         rm -rf /var/lib/apt/lists/*
         
 COPY aria2.conf /
