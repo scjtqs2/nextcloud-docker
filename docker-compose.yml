@@ -61,7 +61,7 @@ services:
       - cloud_net
     volumes:
       - ./nextcloud:/var/www/html
-      - /mnt/sas/nas/nextcloud:/nextcloud
+      - ./nextcloud:/nextcloud
 
     restart: always
 
