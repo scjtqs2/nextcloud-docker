@@ -57,7 +57,9 @@ COPY supervisord.conf /
 RUN apt-get update; \
         apt-get install -y --no-install-recommends \
         aria2 \
-        ;
+        ; \
+        rm -rf /var/lib/apt/lists/*
+        
 COPY aria2.conf /
 
 ENV NEXTCLOUD_UPDATE=1
