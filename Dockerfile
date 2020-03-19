@@ -23,7 +23,6 @@ RUN set -ex; \
         libc-client-dev \
         libkrb5-dev \
         libsmbclient-dev \
-        aria2 \
     ; \
     \
     docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
@@ -55,6 +54,10 @@ RUN mkdir -p \
 
 COPY supervisord.conf /
 
+RUN apt-get update; \
+        apt-get install -y --no-install-recommends \
+        aria2 \
+        ;
 COPY aria2.conf /
 
 ENV NEXTCLOUD_UPDATE=1
