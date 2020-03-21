@@ -60,10 +60,6 @@ RUN apt-get update; \
         python-pip \
         ; \
         pip install youtube-dl; \
-        mkdir  -p /var/log/aria2c /var/local/aria2c; \
-        touch /aria2.session; \
-        touch /var/log/aria2c/aria2.log; \
-        chmod -R 777 /var/log/aria2c; \
         rm -rf /var/lib/apt/lists/*
         
 COPY aria2.conf /
