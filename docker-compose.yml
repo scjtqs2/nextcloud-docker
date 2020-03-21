@@ -58,6 +58,9 @@ services:
       - DB_HOST=db
     ports:
       - 9080:80/tcp
+      #bt 穿透
+      - 51413:51413/tcp
+      - 6881-6999:6881-6999/tcp
     networks:
       - cloud_net
     volumes:
