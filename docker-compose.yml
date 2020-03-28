@@ -4,7 +4,7 @@ services:
   nginx:
     container_name: nginx
     hostname: nginx
-    image: nginx:latest
+    image: nginx:alpine
     ports:
       - 800:80
       - 8443:443
