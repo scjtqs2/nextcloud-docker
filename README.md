@@ -25,7 +25,7 @@
 
 > 在/etc/fstab 中的挂载参数加上 `dir_mode=0777,file_mode=0777` 例如：
 
-> `//10.0.0.2/disk_e /mnt/windows   cifs    defaults,username=scjtqs,password=scjtqs,dir_mode=0777,file_mode=0777 0 2`
+> `//10.0.0.2/floder_e /mnt/ssd/nextcloud-docker/nextcloud-data   cifs    defaults,username=scjtqs,password=scjtqs,dir_mode=0777,file_mode=0777 0 2`
 
 ## 一些默认参数
 
