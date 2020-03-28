@@ -18,6 +18,15 @@
 
 > docker-compose.yml中对应的目录地址，请全部修改为win下对应的本地目录地址
 
+## 将nextcloud-data挂载成smb(from windows)的时候需要注意事项
+> > 需要在nextcloud/config/config.php中增加一个配置项
+
+> `'check_data_directory_permissions' => false,`     #检查数据目录权限
+
+> 在/etc/fstab 中的挂载参数加上 `dir_mode=0777,file_mode=0777` 例如：
+
+> `//10.0.0.2/disk_e /mnt/windows   cifs    defaults,username=scjtqs,password=scjtqs,dir_mode=0777,file_mode=0777 0 2`
+
 ## 一些默认参数
 
 > nextcloud安装时的数据库地址，将“localhost”改成db,用户root，密码root。
