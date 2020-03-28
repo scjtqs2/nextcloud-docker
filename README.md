@@ -27,6 +27,8 @@
 
 > `//10.0.0.2/floder_e /mnt/ssd/nextcloud-docker/nextcloud-data   cifs    defaults,username=scjtqs,password=scjtqs,dir_mode=0777,file_mode=0777 0 2`
 
+> 事后记得在 nextcloud-data 下 `touch nextcloud-data/aria2.session && touch nextcloud-data/aria2.log` 这两个是aria2启动的必须文件
+
 ## 一些默认参数
 
 > nextcloud安装时的数据库地址，将“localhost”改成db,用户root，密码root。
