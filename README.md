@@ -37,7 +37,9 @@
 
 ## 关于使用 nginx 反向代理nextcloud自带的apache并对外使用https的一些建议：
 
-> 请在config.php中添加一行 `'overwriteprotocol' => 'https',`
+> 请在config.php中添加一行
+
+> `'overwriteprotocol' => 'https',`
 
 > `'overwrite.cli.url' => 'https://your.domain.com:8443',`//此处写上完整的对外域名
 
