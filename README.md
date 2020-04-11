@@ -41,6 +41,8 @@
 
 > `'overwriteprotocol' => 'https',`
 
+> 以及修改
+
 > `'overwrite.cli.url' => 'https://your.domain.com:8443',`//此处写上完整的对外域名
 
 ### nginx 反向代理的部分片段
