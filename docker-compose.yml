@@ -18,7 +18,7 @@ services:
       - ./nginx/log:/var/log/nginx
   db:
     container_name: nextcloud_db
-    image: mariadb:10.4
+    image: mariadb:10.1
     restart: always
     hostname: db
     ports:
