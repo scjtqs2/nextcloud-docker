@@ -1,5 +1,5 @@
 FROM nextcloud:apache
-
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list
 RUN set -ex; \
     \
     apt-get update; \
