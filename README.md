@@ -56,7 +56,7 @@ location / {
         proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header   X-Forwarded-Host $server_name;
         proxy_set_header   X-Forwarded-Proto https;
-	     proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Upgrade $http_upgrade;
         access_log      /var/log/nginx/nextcloud.access.log;
         error_log       /var/log/nginx/nextcloud.error.log;
         proxy_read_timeout  120s;
