@@ -37,12 +37,6 @@
 
 ## 关于使用 nginx 反向代理nextcloud自带的apache并对外使用https的一些建议：
 
-> 请在config.php中添加一行
-
-> `'overwriteprotocol' => 'https',`
-
-> 以及修改
-
 > `'overwrite.cli.url' => 'https://your.domain.com:8443',`//此处写上完整的对外域名
 
 ### nginx 反向代理的部分片段
@@ -54,14 +48,20 @@
       return 301 $scheme://$host:$server_port/remote.php/dav;
     }
 location / {
-         proxy_http_version 1.1;
-#        proxy_redirect off;
-          proxy_pass http://182.168.50.127:9080;
-         proxy_set_header Host $http_host;
-         proxy_set_header X-Forwarded-Proto $scheme;
-         proxy_set_header X-Real-IP $remote_addr;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version 1.1;
+        proxy_redirect off;
+        proxy_pass http://182.168.50.127:9080/;
+        proxy_set_header   Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Host $server_name;
+        proxy_set_header   X-Forwarded-Proto https;
+	     proxy_set_header Upgrade $http_upgrade;
+        access_log      /var/log/nginx/nextcloud.access.log;
+        error_log       /var/log/nginx/nextcloud.error.log;
+        proxy_read_timeout  120s;
+        client_max_body_size 512M;
+        proxy_request_buffering off;
  }
 
 ````
