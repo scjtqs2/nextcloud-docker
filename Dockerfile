@@ -1,5 +1,8 @@
 FROM nextcloud:apache
+
 RUN sed -i 's/deb.debian.org/mirror.sjtu.edu.cn/g' /etc/apt/sources.list
+RUN sed -i 's/security.debian.org/mirror.sjtu.edu.cn/g' /etc/apt/sources.list
+
 RUN set -ex; \
     \
     apt-get update; \
@@ -60,7 +63,8 @@ RUN apt-get update; \
         python-pip \
         ; \
         pip install youtube-dl; \
-        rm -rf /var/lib/apt/lists/*
+        rm -rf /var/lib/apt/lists/* \
+        echo '*/5 * * * * php -f /var/www/html/cron.php' > /var/spool/cron/crontabs/root
         
 COPY aria2.conf /
 
