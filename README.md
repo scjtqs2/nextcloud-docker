@@ -71,6 +71,12 @@ location / {
  }
 
 ````
+# 更新aria2c的bt-tracker
+> cd nextcloud-docker
+>
+> ./a2-tracker.sh
+>
+> 然后重启docker容器。当前，请确保docker-compose.yml里面已经映射了aria2.conf到docker镜像（默认已映射）
 
 # 升级流程
 > docker-compose 升级镜像真tm方便：

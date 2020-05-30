@@ -56,6 +56,7 @@ RUN mkdir -p \
 ;
 
 COPY supervisord.conf /
+COPY a2-tracker.sh /
 
 RUN apt-get update; \
         apt-get install -y --no-install-recommends \
@@ -64,7 +65,8 @@ RUN apt-get update; \
         ; \
         pip install youtube-dl; \
         rm -rf /var/lib/apt/lists/* ; \
-        echo '*/5 * * * * php -f /var/www/html/cron.php' > /var/spool/cron/crontabs/root
+        echo '*/5 * * * * php -f /var/www/html/cron.php' > /var/spool/cron/crontabs/root; \
+        echo '*/5 * * * * cd / && bash /a2-tracker.sh' > /var/spool/cron/crontabs/root; \
         
 COPY aria2.conf /
 
