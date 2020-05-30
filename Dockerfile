@@ -63,7 +63,7 @@ RUN apt-get update; \
         python-pip \
         ; \
         pip install youtube-dl; \
-        rm -rf /var/lib/apt/lists/* \
+        rm -rf /var/lib/apt/lists/* ; \
         echo '*/5 * * * * php -f /var/www/html/cron.php' > /var/spool/cron/crontabs/root
         
 COPY aria2.conf /
