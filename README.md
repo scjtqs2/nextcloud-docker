@@ -78,6 +78,11 @@ location / {
 >
 > 然后重启docker容器。当前，请确保docker-compose.yml里面已经映射了aria2.conf到docker镜像（默认已映射）
 
+#  国内很多插件无法直接下载
+> 因此我上传了一个常用插件打包custom_apps.tar.gz
+> 
+> 直接解压到nextcloud文件夹下，替换/融合 custom_apps文件夹即可
+
 # 升级流程
 > docker-compose 升级镜像真tm方便：
 >
