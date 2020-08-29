@@ -1,7 +1,7 @@
 FROM nextcloud:apache
 
-RUN sed -i 's/deb.debian.org/mirror.sjtu.edu.cn/g' /etc/apt/sources.list
-RUN sed -i 's/security.debian.org/mirror.sjtu.edu.cn/g' /etc/apt/sources.list
+#RUN sed -i 's/deb.debian.org/mirror.sjtu.edu.cn/g' /etc/apt/sources.list
+#RUN sed -i 's/security.debian.org/mirror.sjtu.edu.cn/g' /etc/apt/sources.list
 
 RUN set -ex; \
     \
