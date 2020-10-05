@@ -70,6 +70,6 @@ RUN apt-get update; \
         
 COPY aria2.conf /
 
-ENV NEXTCLOUD_UPDATE=1
+ENV NEXTCLOUD_UPDATE=0
 
 CMD ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
