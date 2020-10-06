@@ -5,6 +5,15 @@
 
 > docker-compose up -d
 
+## 使用http代理 fq
+
+> 在 config.php里面加入一行：
+
+```
+'proxy' => '192.168.0.2:10809',
+```
+
+> ip+端口的形式，不需要带上http头。需要使用http的代理。
 
 ## 关闭
 
