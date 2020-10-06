@@ -15,6 +15,17 @@
 
 > ip+端口的形式，不需要带上http头。需要使用http的代理。
 
+## 中文和时区问题：
+
+> 在 config.php中加入:
+
+```
+  "default_language" => "zh_CN",
+  "default_locale" => "zh_Hans_CN",
+  "force_language" => "zh_CN",
+  "force_locale" => "zh_Hans_CN",
+```
+
 ## 关闭
 
 > docker-compose down
