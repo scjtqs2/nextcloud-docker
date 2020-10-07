@@ -5,6 +5,10 @@
 
 > docker-compose up -d
 
+## 薪资fpm-alpine版本
+
+> 使用 docker-compose-fpm.yml
+
 ## 使用http代理 fq
 
 > 在 config.php里面加入一行：
