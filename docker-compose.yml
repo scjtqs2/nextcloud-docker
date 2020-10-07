@@ -18,6 +18,7 @@ services:
       - ./nginx/log:/var/log/nginx
   db:
     container_name: nextcloud_db
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     image: mariadb:10.1
     restart: always
     hostname: db
