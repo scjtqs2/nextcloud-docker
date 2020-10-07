@@ -52,9 +52,9 @@ RUN  apk add --no-cache  \
         py3-pip \
         ; \
         pip3 install youtube-dl; \
-        echo '*/5 * * * * php -f /var/www/html/cron.php' >> /var/spool/cron/crontabs/root; \
-        echo '*/5 * * * * curl http://web/cron.php' >> /var/spool/cron/crontabs/root; \
-        echo '*/5 * * * * cd / && bash /a2-tracker.sh' >> /var/spool/cron/crontabs/root;
+        echo '*/5 * * * * php -f /var/www/html/cron.php \r\n' >> /var/spool/cron/crontabs/root; \
+        echo '*/5 * * * * curl http://web/cron.php \r\n' >> /var/spool/cron/crontabs/root; \
+        echo '*/5 * * * * cd / && bash /a2-tracker.sh \r\n' >> /var/spool/cron/crontabs/root;
 
 COPY aria2.conf /
 
