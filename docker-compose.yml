@@ -74,7 +74,7 @@ services:
     volumes:
       - ./nextcloud:/var/www/html
       - ./nextcloud-data/:/nextcloud
-      - ./aria2.conf:/aria2.conf
+      #- ./aria2.conf:/aria2.conf
 
     restart: always
 

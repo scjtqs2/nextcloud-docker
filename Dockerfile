@@ -56,6 +56,7 @@ RUN mkdir -p \
 ;
 
 COPY supervisord.conf /
+COPY aria2.conf /
 COPY a2-tracker.sh /
 
 RUN apt-get update; \
