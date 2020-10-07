@@ -65,8 +65,9 @@ RUN apt-get update; \
         ; \
         pip install youtube-dl; \
         rm -rf /var/lib/apt/lists/* ; \
-        echo '*/5 * * * * php -f /var/www/html/cron.php' > /var/spool/cron/crontabs/root; \
-        echo '*/5 * * * * cd / && bash /a2-tracker.sh' > /var/spool/cron/crontabs/root; 
+        echo '*/5 * * * * php -f /var/www/html/cron.php' >> /var/spool/cron/crontabs/root; \
+        echo '*/5 * * * * curl http://127.0.0.1/cron.php' >> /var/spool/cron/crontabs/root; \
+        echo '*/5 * * * * cd / && bash /a2-tracker.sh' >> /var/spool/cron/crontabs/root;
         
 COPY aria2.conf /
 
