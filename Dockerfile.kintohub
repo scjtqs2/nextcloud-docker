@@ -79,7 +79,7 @@ COPY supervisord.kintohub.conf /
 
 RUN  wget --no-check-certificate 'https://pan.xxooxxoo.xyz:8444/f/a573d687292348e083f3/?dl=1' -O  /nextcloud/nextcloud.zip
 
-RUN unzip -j -o /nextcloud/nextcloud.zip '/nextcloud/' -d /var/www/html/
+RUN unzip -j -o /nextcloud/nextcloud.zip 'nextcloud/*' -d /var/www/html/
 
 RUN mkdir /var/run/supervisord/ && touch /var/run/supervisord/supervisord.pid
 
