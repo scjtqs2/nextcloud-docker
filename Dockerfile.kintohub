@@ -66,7 +66,7 @@ RUN apt-get update; \
         apt-get install -y --no-install-recommends \
         aria2 \
         python-pip \
-        unzip \
+        unzip wget \
         ; \
         pip install youtube-dl; \
         rm -rf /var/lib/apt/lists/* ; \
