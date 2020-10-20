@@ -1,1 +1,1 @@
-FROM scjtqs/nextcloud:latest
+FROM scjtqs/nextcloud:amd64
