@@ -139,8 +139,8 @@ COPY kintohub_web/nginx.conf /etc/nginx/nginx.conf
 
 #RUN cd /var/www/html && git clone https://github.com/kalcaddle/KODExplorer.git kodexplorer && chmod -Rf 777 ./kodexplorer
 
-#RUN cp -a /usr/src/nextcloud/* /var/www/html/
-#RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
+RUN cp -a /usr/src/nextcloud/* /var/www/html/
+RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
 
 #RUN ln -s /usr/src/nextcloud /var/www/html
 
