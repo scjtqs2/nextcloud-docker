@@ -1,14 +1,14 @@
 FROM scjtqs/nextcloud:latest
 
 
-RUN mkdir /nextcloud
+RUN mkdir /nextcloud;
 
 COPY nextcloud-data/aria2.log /nextcloud/
 COPY nextcloud-data/aria2.session /nextcloud/
 
-RUN chown -R www-data:www-data /nextcloud
+RUN chown -R www-data:www-data /nextcloud;
 
-RUN rm -rf /var/spool/cron/crontabs/root
+RUN rm -rf /var/spool/cron/crontabs/root;
 
 
 RUN apt-get update; \
@@ -23,12 +23,13 @@ RUN apt-get update; \
 COPY a2-tracker.sh /
 COPY supervisord.kintohub.conf /
 
-RUN  wget --no-check-certificate 'https://pan.xxooxxoo.xyz:8444/f/a573d687292348e083f3/?dl=1' -O  /nextcloud/nextcloud.zip
+#RUN  wget --no-check-certificate 'https://pan.xxooxxoo.xyz:8444/f/a573d687292348e083f3/?dl=1' -O  /nextcloud/nextcloud.zip
 
-RUN unzip -j -o /nextcloud/nextcloud.zip 'nextcloud/*' -d /var/www/html/
+#RUN unzip -j -o /nextcloud/nextcloud.zip 'nextcloud/*' -d /var/www/html/
 
 #RUN mkdir /var/run/supervisord/ && touch /var/run/supervisord/supervisord.pid
 
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:root /var/www/html;
+#    chmod 777 /var/www/html;
 
 CMD ["/usr/bin/supervisord", "-c", "/supervisord.kintohub.conf"]
