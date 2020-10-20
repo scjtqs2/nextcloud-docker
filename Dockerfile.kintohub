@@ -5,6 +5,8 @@ RUN mkdir /nextcloud
 COPY nextcloud-data/aria2.log /nextcloud/
 COPY nextcloud-data/aria2.session /nextcloud/
 
+RUN chown -R www-data:www-data /nextcloud
+
 RUN rm -rf /var/spool/cron/crontabs/root
 
 RUN  echo '*/5 * * * * curl http://127.0.0.1/cron.php \r\n' >> /var/spool/cron/crontabs/root; \
