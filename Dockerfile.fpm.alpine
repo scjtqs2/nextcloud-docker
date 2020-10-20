@@ -47,7 +47,9 @@ RUN mkdir -p \
 COPY supervisord.alpine.conf /
 COPY a2-tracker.sh /
 
-RUN  apk add --no-cache  \
+RUN set -ex; \
+        \
+    apk add --no-cache  \
         aria2 \
         py3-pip \
         ; \
