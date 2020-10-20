@@ -1,4 +1,4 @@
-FROM nextcloud:apache
+FROM nextcloud:18.0.10-apache
 
 #RUN sed -i 's/deb.debian.org/mirror.sjtu.edu.cn/g' /etc/apt/sources.list
 #RUN sed -i 's/security.debian.org/mirror.sjtu.edu.cn/g' /etc/apt/sources.list
