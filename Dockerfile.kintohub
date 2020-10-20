@@ -1,56 +1,5 @@
-FROM nextcloud:apache
+FROM scjtqs/nextcloud:latest
 
-RUN set -ex; \
-    \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
-        ffmpeg \
-        libmagickcore-6.q16-6-extra \
-        procps \
-        smbclient \
-        supervisor \
-#       libreoffice \
-    ; \
-    rm -rf /var/lib/apt/lists/*
-
-RUN set -ex; \
-    \
-    savedAptMark="$(apt-mark showmanual)"; \
-    \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
-        libbz2-dev \
-        libc-client-dev \
-        libkrb5-dev \
-        libsmbclient-dev \
-    ; \
-    \
-    docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
-    docker-php-ext-install \
-        bz2 \
-        imap \
-    ; \
-    pecl install smbclient; \
-    docker-php-ext-enable smbclient; \
-    \
-# reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
-    apt-mark auto '.*' > /dev/null; \
-    apt-mark manual $savedAptMark; \
-    ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
-        | awk '/=>/ { print $3 }' \
-        | sort -u \
-        | xargs -r dpkg-query -S \
-        | cut -d: -f1 \
-        | sort -u \
-        | xargs -rt apt-mark manual; \
-    \
-    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p \
-    /var/log/supervisord \
-    /var/run/supervisord \
-;
 
 RUN mkdir /nextcloud
 
@@ -64,11 +13,8 @@ RUN rm -rf /var/spool/cron/crontabs/root
 
 RUN apt-get update; \
         apt-get install -y --no-install-recommends \
-        aria2 \
-        python-pip \
         unzip wget \
         ; \
-        pip install youtube-dl; \
         rm -rf /var/lib/apt/lists/* ; \
         echo '*/5 * * * * curl http://127.0.0.1/cron.php \r\n' >> /var/spool/cron/crontabs/root; \
         echo '*/5 * * * * cd / && bash /a2-tracker.sh \r\n' >> /var/spool/cron/crontabs/root;
@@ -81,7 +27,7 @@ RUN  wget --no-check-certificate 'https://pan.xxooxxoo.xyz:8444/f/a573d687292348
 
 RUN unzip -j -o /nextcloud/nextcloud.zip 'nextcloud/*' -d /var/www/html/
 
-RUN mkdir /var/run/supervisord/ && touch /var/run/supervisord/supervisord.pid
+#RUN mkdir /var/run/supervisord/ && touch /var/run/supervisord/supervisord.pid
 
 RUN chown -R www-data:www-data /var/www/html
 
