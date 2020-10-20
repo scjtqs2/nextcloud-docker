@@ -142,6 +142,8 @@ COPY kintohub_web/info.php /var/www/html/info.php
 RUN git clone https://gitee.com/kalcaddle/KODExplorer.git /var/www/html/kodexplorer
 
 RUN chown -R www-data:root /var/www/html
+
+RUN /entrypoint.sh
 #    chmod 777 /var/www/html;
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/supervisord.kintohub.conf"]
