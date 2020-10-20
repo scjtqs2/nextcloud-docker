@@ -141,6 +141,7 @@ COPY kintohub_web/nginx.conf /etc/nginx/nginx.conf
 
 RUN cp -a /usr/src/nextcloud/* /var/www/html/
 RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
+RUN cp -a /usr/src/nextcloud/.htaccess /var/www/html/
 
 #RUN ln -s /usr/src/nextcloud /var/www/html
 
