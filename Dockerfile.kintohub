@@ -31,5 +31,5 @@ COPY supervisord.kintohub.conf /
 
 RUN chown -R www-data:root /var/www/html;
 #    chmod 777 /var/www/html;
-
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/supervisord.kintohub.conf"]
