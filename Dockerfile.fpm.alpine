@@ -52,6 +52,7 @@ RUN set -ex; \
     apk add --no-cache  \
         aria2 \
         py3-pip \
+        bash \
         ; \
         pip3 install youtube-dl; \
         echo '*/5 * * * * php -f /var/www/html/cron.php \r\n' >> /var/spool/cron/crontabs/root; \
