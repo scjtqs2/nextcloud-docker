@@ -118,7 +118,7 @@ RUN set -x \
     && mv /tmp/envsubst /usr/local/bin/ \
 # Bring in tzdata so users could set the timezones through the environment
 # variables
-    && apk add --no-cache tzdata  bash \
+    && apk add --no-cache tzdata  bash git \
 # Bring in curl and ca-certificates to make registering on DNS SD easier
     && apk add --no-cache curl ca-certificates \
 # forward request and error logs to docker log collector
@@ -138,6 +138,8 @@ STOPSIGNAL SIGTERM
 
 COPY kintohub_web/nginx.conf /etc/nginx/nginx.conf
 COPY kintohub_web/info.php /var/www/html/info.php
+
+RUN git clone https://gitee.com/kalcaddle/KODExplorer.git /var/www/html/kodexplorer
 
 RUN chown -R www-data:root /var/www/html
 #    chmod 777 /var/www/html;
