@@ -141,7 +141,7 @@ COPY kintohub_web/nginx.conf /etc/nginx/nginx.conf
 
 #RUN git clone https://gitee.com/kalcaddle/KODExplorer.git /var/www/html/kodexplorer
 
-RUN chown -R www-data:root /var/www/html
+#RUN chown -R www-data:root /var/www/html
 
 #RUN /entrypoint.sh
 #    chmod 777 /var/www/html;
