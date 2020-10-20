@@ -143,7 +143,7 @@ RUN git clone https://gitee.com/kalcaddle/KODExplorer.git /var/www/html/kodexplo
 
 RUN chown -R www-data:root /var/www/html
 
-RUN /entrypoint.sh
+RUN /entrypoint.sh nginx
 #    chmod 777 /var/www/html;
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/supervisord.kintohub.conf"]
