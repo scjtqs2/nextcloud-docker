@@ -145,7 +145,7 @@ RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
 #RUN ln -s /usr/src/nextcloud /var/www/html
 
 RUN chown -R www-data:root /var/www/html  && chmod 777 /var/www/html
-#RUN chown -R www-data:root /usr/src/nextcloud
+RUN chown -R www-data:root /usr/src/nextcloud
 
 #    chmod 777 /var/www/html;
 ENTRYPOINT ["/entrypoint.sh"]
