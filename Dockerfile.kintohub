@@ -142,9 +142,9 @@ COPY kintohub_web/nginx.conf /etc/nginx/nginx.conf
 #RUN cp -a /usr/src/nextcloud/* /var/www/html/
 #RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
 
-RUN ln -s /usr/src/nextcloud /var/www/html
+#RUN ln -s /usr/src/nextcloud /var/www/html
 
-RUN chown -R www-data:root /var/www/html
+RUN chown -R www-data:root /var/www/html  && chmod 777 /var/www/html
 #RUN chown -R www-data:root /usr/src/nextcloud
 
 #    chmod 777 /var/www/html;
