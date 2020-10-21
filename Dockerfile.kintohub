@@ -9,6 +9,7 @@ RUN chown -R www-data:www-data /nextcloud
 
 RUN rm -rf /var/spool/cron/crontabs/root
 
+ARG SWITCH_HTTPS=""
 
 RUN  set -ex; \
         \
@@ -128,7 +129,7 @@ RUN set -x \
 COPY kintohub_web/docker-entrypoint.sh /
 COPY kintohub_web/10-listen-on-ipv6-by-default.sh /docker-entrypoint.d
 COPY kintohub_web/20-envsubst-on-templates.sh /docker-entrypoint.d
-
+COPY kintohub_web/30-swith-https.sh /docker-entrypoint.d
 
 EXPOSE 80
 
