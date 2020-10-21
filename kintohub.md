@@ -22,4 +22,5 @@
       - SMTP_AUTHTYPE=LOGIN
       - MAIL_FROM_ADDRESS=邮箱@前名字
       - MAIL_DOMAIN=邮箱@后域名
+      - SWITCH_HTTPS="true"
 ```
