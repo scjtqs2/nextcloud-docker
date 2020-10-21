@@ -135,7 +135,7 @@ EXPOSE 80
 
 STOPSIGNAL SIGTERM
 
-COPY kintohub_web/nginx.conf /etc/nginx/nginx.conf
+COPY kintohub_web/nginx.conf.kintohub /etc/nginx/nginx.conf
 #COPY kintohub_web/info.php /var/www/html/info.php
 
 #RUN cd /var/www/html && git clone https://github.com/kalcaddle/KODExplorer.git kodexplorer && chmod -Rf 777 ./kodexplorer
