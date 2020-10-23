@@ -18,7 +18,7 @@ RUN  set -ex; \
 
 
 COPY a2-tracker.sh /
-#COPY supervisord.kintohub.conf /
+COPY supervisord.kintohub2.conf /
 
 #COPY kintohub_web/info.php /var/www/html/info.php
 
@@ -47,4 +47,4 @@ RUN chown -R www-data:root /usr/src/nextcloud
 
 #    chmod 777 /var/www/html;
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/supervisord.kintohub2.conf"]
