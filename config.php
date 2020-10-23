@@ -7,7 +7,8 @@ $CONFIG = array (
   'secret' => 'eDpFAbE5W60UxYcFbdsy/KLcPZGC12AxmWYufL4AaLJ7fNxt',
   'trusted_domains' => 
   array (
-    0 => getenv('NEXTCLOUD_TRUSTED_DOMAINS')?:getenv('DOMAIN'),
+    0 => '127.0.0.1',
+    1 => getenv('NEXTCLOUD_TRUSTED_DOMAINS')?:getenv('DOMAIN'),
   ),
   'datadirectory' => getenv('NEXTCLOUD_DATA_DIR')?:'/nextcloud',
     /**
@@ -30,7 +31,7 @@ $CONFIG = array (
   'dbtableprefix' => 'oc_',
   'dbuser' => getenv('MYSQL_USER')?:(getenv('POSTGRES_USER')?:'') ,
   'dbpassword' => getenv('MYSQL_PASSWORD')?:(getenv('POSTGRES_PASSWORD')?:''),
-  'installed' => ($_GET['INSTALL']==2)?true:(getenv('INSTALLED')?true:false),
+  'installed' => ($_GET['INSTALL']==2)?false:(getenv('INSTALLED')?true:false),
   'overwriteprotocol' => 'https',
   'overwrite.cli.url'=>'https://'.getenv('NEXTCLOUD_TRUSTED_DOMAINS')?:getenv('DOMAIN'),
   'loglevel' => 3,
