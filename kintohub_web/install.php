@@ -18,7 +18,7 @@ curl_setopt_array($curl, array(
     CURLOPT_CUSTOMREQUEST => "POST",
     CURLOPT_SSL_VERIFYHOST=>2 ,
     CURLOPT_SSL_VERIFYPEER=>false,
-    CURLOPT_POSTFIELDS => urlencode("install=true&adminlogin=".getenv('NEXTCLOUD_ADMIN_USER')."&adminpass=".getenv('NEXTCLOUD_ADMIN_PASSWORD')."&adminpass-clone=".getenv('NEXTCLOUD_ADMIN_PASSWORD')),
+    CURLOPT_POSTFIELDS => "install=true&adminlogin=".urlencode(getenv('NEXTCLOUD_ADMIN_USER'))."&adminpass=".urlencode(getenv('NEXTCLOUD_ADMIN_PASSWORD'))."&adminpass-clone=".urlencode(getenv('NEXTCLOUD_ADMIN_PASSWORD')),
     CURLOPT_HTTPHEADER => array(
         "Content-Type: application/x-www-form-urlencoded"
     ),
