@@ -1,4 +1,5 @@
 <?php
+set_time_limit(1200);
 $CONFIG = array (
   'htaccess.RewriteBase' => '/',
   'instanceid' => 'd3c944a9a',
