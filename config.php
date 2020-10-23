@@ -6,7 +6,7 @@ $CONFIG = array (
   'secret' => 'd3c944a9af095aa08f',
   'trusted_domains' => 
   array (
-    0 => getenv('DOMAIN'),
+    0 => getenv('NEXTCLOUD_TRUSTED_DOMAINS')?:getenv('DOMAIN'),
   ),
   'datadirectory' => getenv('NEXTCLOUD_DATA_DIR')?:'/nextcloud',
     /**
