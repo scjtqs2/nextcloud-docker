@@ -36,7 +36,7 @@ RUN apt-get update; \
         rm -rf /var/lib/apt/lists/* ;
 #RUN ln -s /usr/src/nextcloud /var/www/html
 COPY config.php /var/www/html/config/
-COPY kintohub_web/init.sh /
+COPY kintohub_web/install.php /
 
 RUN wget https://github.com/scjtqs/nextcloud-docker/raw/master/custom_apps.tar.gz -O /custom_apps.tar.gz --no-check-certificate
 
