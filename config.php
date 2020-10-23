@@ -2,9 +2,9 @@
 set_time_limit(1200);
 $CONFIG = array (
   'htaccess.RewriteBase' => '/',
-  'instanceid' => 'd3c944a9a',
-  'passwordsalt' => 'd3c944a9af095aa08f',
-  'secret' => 'd3c944a9af095aa08f',
+  'instanceid' => 'ocnkyaj2whi4',
+  'passwordsalt' => 'h+eV69b34G4fr0e5Vu5pTwudNXb/pI',
+  'secret' => 'eDpFAbE5W60UxYcFbdsy/KLcPZGC12AxmWYufL4AaLJ7fNxt',
   'trusted_domains' => 
   array (
     0 => getenv('NEXTCLOUD_TRUSTED_DOMAINS')?:getenv('DOMAIN'),
