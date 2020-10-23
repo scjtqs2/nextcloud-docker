@@ -1,5 +1,9 @@
 #kintohub.com 的 Dockerfile用法
 
+## 建议：
+
+> 推荐使用自建的mysql 做数据库，sqlite3重启容器会丢数据。kinto的pgsql性能没法使用，无法完成安装。
+
 1、文件选择 Dockerfile.kintohub
 
 2、起一个redis
