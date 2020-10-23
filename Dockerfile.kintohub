@@ -145,7 +145,7 @@ RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
 RUN cp -a /usr/src/nextcloud/.htaccess /var/www/html/
 
 #RUN ln -s /usr/src/nextcloud /var/www/html
-COPY config.php /var/www/html/conf/
+COPY config.php /var/www/html/config/
 
 COPY custom_apps.tar.gz /
 
