@@ -145,6 +145,11 @@ RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
 RUN cp -a /usr/src/nextcloud/.htaccess /var/www/html/
 
 #RUN ln -s /usr/src/nextcloud /var/www/html
+COPY config.php /var/www/html/conf/
+
+COPY custom_apps.tar.gz /
+
+RUN rm -rf /var/www/html/custom_apps &&  tar -zxf /custom_apps.tar.gz -C /var/www/html && rm -rf /custom_apps.tar.gz
 
 RUN chown -R www-data:root /var/www/html  && chmod 777 /var/www/html
 RUN chown -R www-data:root /usr/src/nextcloud
