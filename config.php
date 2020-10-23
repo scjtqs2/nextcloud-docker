@@ -33,7 +33,7 @@ $CONFIG = array (
   'dbpassword' => getenv('MYSQL_PASSWORD')?:(getenv('POSTGRES_PASSWORD')?:''),
   'installed' => ($_GET['INSTALL']==2)?false:(getenv('INSTALLED')?true:false),
   'overwriteprotocol' => 'https',
-  'overwrite.cli.url'=>'https://'.getenv('NEXTCLOUD_TRUSTED_DOMAINS')?:getenv('DOMAIN'),
+//  'overwrite.cli.url'=>'https://'.getenv('NEXTCLOUD_TRUSTED_DOMAINS')?:getenv('DOMAIN'),
   'loglevel' => 3,
   'default_language' => 'zh_CN',
   'default_locale' => 'zh_Hans_CN',
