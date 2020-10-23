@@ -1,5 +1,5 @@
 <?php
-set_time_limit(1200);
+//set_time_limit(1200);
 $CONFIG = array (
   'htaccess.RewriteBase' => '/',
   'instanceid' => 'ocnkyaj2whi4',
@@ -32,12 +32,13 @@ $CONFIG = array (
   'dbpassword' => getenv('MYSQL_PASSWORD')?:(getenv('POSTGRES_PASSWORD')?:''),
   'installed' => getenv('INSTALLED')?true:false,
   'overwriteprotocol' => 'https',
-  'maintenance' => false,
+  'overwrite.cli.url'=>'https://'.getenv('NEXTCLOUD_TRUSTED_DOMAINS')?:getenv('DOMAIN'),
   'loglevel' => 3,
   'default_language' => 'zh_CN',
   'default_locale' => 'zh_Hans_CN',
   'force_language' => 'zh_CN',
   'force_locale' => 'zh_Hans_CN',
+    'check_data_directory_permissions' => false,
 );
 if(!getenv('INSTALLED'))
 {
