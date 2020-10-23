@@ -6,9 +6,9 @@
  * Time: 01:33
  */
 $curl = curl_init();
-
+$url=(getenv('URL')?:"http://127.0.0.1").'/index.php?INSTALL=2';
 curl_setopt_array($curl, array(
-    CURLOPT_URL => "http://127.0.0.1/index.php?INSTALL=2",
+    CURLOPT_URL => $url,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 68,
