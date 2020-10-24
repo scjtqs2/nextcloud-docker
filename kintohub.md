@@ -48,6 +48,7 @@
       - MYSQL_USER=nextcloud
       - MYSQL_PASSWORD=nextcloud
       - MYSQL_HOST=www.baidu.com:3306
+      - DB_PORT=3306
       - REDIS_HOST=redis-master
       - REDIS_HOST_PORT=6379
       - REDIS_HOST_PASSWORD=你的密码
