@@ -32,11 +32,17 @@ echo "Nextcloud version:"
 php occ status
 sleep 3
 EOL;
+$sedShell=<<<EOL
+sed -i "s/'installed' =>/#'installed' =>/g" /var/www/html/config/config.php
+EOL;
 
 $check=checkInstalled();
 if(!$check)
 {
+    $ret=shell_exec($sedShell);
+    print_r($ret);
     shell_exec($installshell);
+    print_r($sedShell);
 }
 
 function checkInstalled()
