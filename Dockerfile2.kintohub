@@ -22,12 +22,6 @@ COPY supervisord.kintohub2.conf /
 
 #COPY kintohub_web/info.php /var/www/html/info.php
 
-RUN cd /var/www/html && git clone https://github.com/kalcaddle/KODExplorer.git kodexplorer && chown -R www-data:root ./kodexplorer
-
-RUN cp -a /usr/src/nextcloud/* /var/www/html/
-RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
-RUN cp -a /usr/src/nextcloud/.htaccess /var/www/html/
-
 RUN apt-get update; \
         apt-get install -y --no-install-recommends \
         wget \
@@ -35,6 +29,14 @@ RUN apt-get update; \
         git \
         ; \
         rm -rf /var/lib/apt/lists/* ;
+
+RUN cd /var/www/html && git clone https://github.com/kalcaddle/KODExplorer.git kodexplorer && chown -R www-data:root ./kodexplorer
+
+RUN cp -a /usr/src/nextcloud/* /var/www/html/
+RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
+RUN cp -a /usr/src/nextcloud/.htaccess /var/www/html/
+
+
 #RUN ln -s /usr/src/nextcloud /var/www/html
 COPY config.php /var/www/html/config/
 
