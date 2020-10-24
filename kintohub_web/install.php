@@ -23,12 +23,12 @@ $installshell=<<<EOL
 cd /var/www/html
 php occ maintenance:install \
 --data-dir="{$conf['dir']}" \
---database={$conf['dbtype']} \
---database-name={$conf['dbname']} \
---database-host={$conf['dbhost']} \
+--database="{$conf['dbtype']}" \
+--database-name="{$conf['dbname']}" \
+--database-host="{$conf['dbhost']}" \
 --database-user="{$conf['dbuser']}" \
 --database-pass="{$conf['dbpassword']}" \
---database-port="{$conf['dbport']}" \
+--database-port={$conf['dbport']} \
 --admin-user="{$conf['admin']}" \
 --admin-pass="{$conf['passwd']}"
 echo "Nextcloud version:" 
