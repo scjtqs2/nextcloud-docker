@@ -45,7 +45,7 @@ RUN cp -a /usr/src/nextcloud/.htaccess /var/www/html/
 COPY config.php /var/www/html/config/
 
 #RUN wget https://github.com/scjtqs/nextcloud-docker/raw/master/custom_apps.tar.gz -O /custom_apps.tar.gz --no-check-certificate
-RUN wget https://pan.xxooxxoo.xyz:8444/f/409999b276c04b949329/?dl=1 -O /custom_apps.tar.gz --no-check-certificate
+RUN wget https://pan.scjtqs.com/f/409999b276c04b949329/?dl=1 -O /custom_apps.tar.gz --no-check-certificate
 
 RUN rm -rf /var/www/html/custom_apps &&  tar -zxf /custom_apps.tar.gz -C /var/www/html && rm -rf /custom_apps.tar.gz
 
