@@ -31,7 +31,7 @@ $CONFIG = array (
   'dbtableprefix' => 'oc_',
   'dbuser' => getenv('MYSQL_USER')?:(getenv('POSTGRES_USER')?:'') ,
   'dbpassword' => getenv('MYSQL_PASSWORD')?:(getenv('POSTGRES_PASSWORD')?:''),
-  'installed' => ($_GET['INSTALL']==2)?false:(($_POST['install']=='true')?false:(getenv('INSTALLED')?true:false)),
+  'installed' => true,
   'overwriteprotocol' => 'https',
 //  'overwrite.cli.url'=>'https://'.getenv('NEXTCLOUD_TRUSTED_DOMAINS')?:getenv('DOMAIN'),
   'loglevel' => 3,
