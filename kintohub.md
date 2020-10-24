@@ -2,7 +2,7 @@
 
 ## 建议：
 
-> 推荐使用自建的mysql 做数据库，sqlite3重启容器会丢数据。kinto的pgsql性能没法使用，无法完成安装。
+> 推荐使用自建的mysql 做数据库，sqlite3重启容器会丢数据。
 
 1、文件选择 Dockerfile.kintohub
 
@@ -100,3 +100,7 @@
       - NEXTCLOUD_TRUSTED_DOMAINS=wpan.scjtqs.com
       - INSTALLED=1
 ```
+
+4、文件选择 Dockerfile2.kintohub 会自动安装(环境变量一定要填全，除了邮箱的部分)，带kodexplorer 
+
+> https://域名/kodexplorer 
