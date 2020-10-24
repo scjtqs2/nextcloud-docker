@@ -95,6 +95,6 @@
       - NEXTCLOUD_TRUSTED_DOMAINS=wpan.scjtqs.com
 ```
 
-4、文件选择 Dockerfile2.kintohub 会自动安装(环境变量一定要填全，除了邮箱的部分)，带kodexplorer 
+6、文件选择 Dockerfile2.kintohub 会自动安装(环境变量一定要填全，除了邮箱的部分)，带kodexplorer 
 
 > https://域名/kodexplorer 
