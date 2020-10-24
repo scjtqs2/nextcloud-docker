@@ -29,12 +29,10 @@
       - SMTP_AUTHTYPE=LOGIN
       - MAIL_FROM_ADDRESS=邮箱@前名字
       - MAIL_DOMAIN=邮箱@后域名
-      - SWITCH_HTTPS=1
       - NEXTCLOUD_DATA_DIR=/nextcloud
       - NEXTCLOUD_ADMIN_USER=admin
       - NEXTCLOUD_ADMIN_PASSWORD=admin
       - NEXTCLOUD_TRUSTED_DOMAINS=wpan.scjtqs.com
-      - INSTALLED=0
 ```
 
 4、使用mysql
@@ -61,12 +59,10 @@
       - SMTP_AUTHTYPE=LOGIN
       - MAIL_FROM_ADDRESS=邮箱@前名字
       - MAIL_DOMAIN=邮箱@后域名
-      - SWITCH_HTTPS=1
       - NEXTCLOUD_DATA_DIR=/nextcloud
       - NEXTCLOUD_ADMIN_USER=admin
       - NEXTCLOUD_ADMIN_PASSWORD=admin
       - NEXTCLOUD_TRUSTED_DOMAINS=wpan.scjtqs.com
-      - INSTALLED=1
 ```
 
 5、使用 PostgreSQL
@@ -93,12 +89,10 @@
       - SMTP_AUTHTYPE=LOGIN
       - MAIL_FROM_ADDRESS=邮箱@前名字
       - MAIL_DOMAIN=邮箱@后域名
-      - SWITCH_HTTPS=1
       - NEXTCLOUD_DATA_DIR=/nextcloud
       - NEXTCLOUD_ADMIN_USER=admin
       - NEXTCLOUD_ADMIN_PASSWORD=admin
       - NEXTCLOUD_TRUSTED_DOMAINS=wpan.scjtqs.com
-      - INSTALLED=1
 ```
 
 4、文件选择 Dockerfile2.kintohub 会自动安装(环境变量一定要填全，除了邮箱的部分)，带kodexplorer 
