@@ -56,4 +56,5 @@ RUN chown -R www-data:root /usr/src/nextcloud
 
 #    chmod 777 /var/www/html;
 ENTRYPOINT ["/entrypoint.sh"]
+
 CMD ["/usr/bin/supervisord", "-c", "/supervisord.kintohub2.conf"]
