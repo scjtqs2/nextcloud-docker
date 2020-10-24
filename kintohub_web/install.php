@@ -25,6 +25,7 @@ php occ maintenance:install \
 --data-dir="{$conf['dir']}" \
 --database={$conf['dbtype']} \
 --database-name={$conf['dbname']} \
+--database-host={$conf['dbhost']} \
 --database-user="{$conf['dbuser']}" \
 --database-pass="{$conf['dbpassword']}" \
 --database-port="{$conf['dbport']}" \
