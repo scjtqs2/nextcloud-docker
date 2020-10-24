@@ -38,6 +38,9 @@ $sedShell=<<<EOL
 sed -i "s/'installed' =>/#'installed' =>/g" /var/www/html/config/config.php
 EOL;
 
+$sedShell2=<<<EOL
+sed -i "s/#'installed' =>/'installed' =>/g" /var/www/html/config/config.php
+EOL;
 $check=checkInstalled();
 if(!$check)
 {
@@ -45,6 +48,9 @@ if(!$check)
     print_r($ret);
     shell_exec($installshell);
     print_r($sedShell);
+    sleep(10);
+    $ret=shell_exec($sedShell2);
+    print_r($ret);
 }
 
 function checkInstalled()
