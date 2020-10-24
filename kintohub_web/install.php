@@ -5,26 +5,77 @@
  * Date: 2020-10-24
  * Time: 01:33
  */
-$curl = curl_init();
-$url=(getenv('URL')?:"http://127.0.0.1").'/index.php?INSTALL=2';
-curl_setopt_array($curl, array(
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 68,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "POST",
-    CURLOPT_SSL_VERIFYHOST=>2 ,
-    CURLOPT_SSL_VERIFYPEER=>false,
-    CURLOPT_POSTFIELDS => "install=true&adminlogin=".urlencode(getenv('NEXTCLOUD_ADMIN_USER'))."&adminpass=".urlencode(getenv('NEXTCLOUD_ADMIN_PASSWORD'))."&adminpass-clone=".urlencode(getenv('NEXTCLOUD_ADMIN_PASSWORD')),
-    CURLOPT_HTTPHEADER => array(
-        "Content-Type: application/x-www-form-urlencoded"
-    ),
-));
 
-$response = curl_exec($curl);
+$conf=[
+    'admin'=>getenv('NEXTCLOUD_ADMIN_USER'),
+    'passwd'=>getenv('NEXTCLOUD_ADMIN_PASSWORD'),
+    'dir'=>getenv('NEXTCLOUD_DATA_DIR'),
+    'dbtype' => getenv('MYSQL_DATABASE')?'mysql':(getenv('POSTGRES_DB')?'pgsql':'sqlite3'),
+    'dbname' => getenv('MYSQL_DATABASE')?:(getenv('POSTGRES_DB')?:(getenv('SQLITE_DATABASE')?:'sqlite3')),
+    'dbhost' => getenv('MYSQL_HOST')?explode(':',getenv('MYSQL_HOST')[0]):(getenv('POSTGRES_HOST')?:''),
+    'dbport' => explode(':',getenv('MYSQL_HOST'))[1]?:(explode(':',getenv('POSTGRES_HOST'))[1]?:getenv('DB_PORT')),
+    'dbuser' => getenv('MYSQL_USER')?:(getenv('POSTGRES_USER')?:'') ,
+    'dbpassword' => getenv('MYSQL_PASSWORD')?:(getenv('POSTGRES_PASSWORD')?:''),
+];
 
-curl_close($curl);
-echo $response;
+$installshell=<<<EOL
+cd /var/www/html
+php occ maintenance:install \
+--data-dir="{$conf['dir']}" \
+--database={$conf['dbtype']} \
+--database-name={$conf['dbname']} \
+--database-user="{$conf['dbuser']}" \
+--database-pass="{$conf['dbpassword']}" \
+--admin-user="{$conf['admin']}" \
+--admin-pass="{$conf['passwd']}"
+echo "Nextcloud version:" 
+php occ status
+sleep 3
+EOL;
+
+$check=checkInstalled();
+if(!$check)
+{
+    shell_exec($installshell);
+}
+
+function checkInstalled()
+{
+    require_once   '/var/www/html/lib/versioncheck.php';
+
+    try {
+
+        require_once '/var/www/html/lib/base.php';
+
+        $systemConfig = \OC::$server->getSystemConfig();
+
+        $installed = (bool) $systemConfig->getValue('installed', false);
+        $maintenance = (bool) $systemConfig->getValue('maintenance', false);
+        # see core/lib/private/legacy/defaults.php and core/themes/example/defaults.php
+        # for description and defaults
+        $defaults = new \OCP\Defaults();
+        $values = [
+            'installed'=>$installed,
+            'maintenance' => $maintenance,
+            'needsDbUpgrade' => \OCP\Util::needUpgrade(),
+            'version'=>implode('.', \OCP\Util::getVersion()),
+            'versionstring'=>OC_Util::getVersionString(),
+            'edition'=> '',
+            'productname'=>$defaults->getName(),
+            'extendedSupport' => \OCP\Util::hasExtendedSupport()
+        ];
+        if (OC::$CLI) {
+            print_r($values);
+        }
+        if($installed)
+        {
+            return true;
+        }
+
+    } catch (Exception $ex) {
+        http_response_code(500);
+        \OC::$server->getLogger()->logException($ex, ['app' => 'remote']);
+    }
+    return false;
+}
+
