@@ -22,7 +22,7 @@ COPY supervisord.kintohub2.conf /
 
 #COPY kintohub_web/info.php /var/www/html/info.php
 
-#RUN cd /var/www/html && git clone https://github.com/kalcaddle/KODExplorer.git kodexplorer && chmod -Rf 777 ./kodexplorer
+RUN cd /var/www/html && git clone https://github.com/kalcaddle/KODExplorer.git kodexplorer && chown -R www-data:root ./kodexplorer
 
 RUN cp -a /usr/src/nextcloud/* /var/www/html/
 RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
