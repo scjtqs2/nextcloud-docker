@@ -27,10 +27,13 @@ RUN apt-get update; \
         wget \
         curl \
         git \
+        unzip \
         ; \
         rm -rf /var/lib/apt/lists/* ;
 
-RUN cd /var/www/html && git clone https://github.com/kalcaddle/KODExplorer.git kodexplorer && chown -R www-data:root ./kodexplorer && mkdir -p data
+#RUN cd /var/www/html && git clone https://github.com/kalcaddle/KODExplorer.git kodexplorer && chown -R www-data:root ./kodexplorer && mkdir -p data
+
+RUN cd /var/www/html && mkdir kodexplorer && cd kodexplorer && wget http://static.kodcloud.com/update/download/kodexplorer4.40.zip -O kodexplorer.zip --no-check-certificate && unzip kodexplorer.zip
 
 RUN cp -a /usr/src/nextcloud/* /var/www/html/
 RUN cp -a /usr/src/nextcloud/.user.ini /var/www/html/
