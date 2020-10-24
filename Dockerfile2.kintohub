@@ -1,4 +1,4 @@
-FROM scjtqs/nextcloud:latest
+FROM scjtqs/nextcloud:amd64
 
 RUN mkdir /nextcloud
 
