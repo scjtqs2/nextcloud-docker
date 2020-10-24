@@ -44,6 +44,7 @@ RUN rm -rf /var/www/html/custom_apps &&  tar -zxf /custom_apps.tar.gz -C /var/ww
 COPY kintohub_web/install.php /var/www/html/
 
 RUN chown -R www-data:root /var/www/html  && chmod 777 /var/www/html
+
 RUN chown -R www-data:root /usr/src/nextcloud
 
 #    chmod 777 /var/www/html;

@@ -5,6 +5,7 @@
  * Date: 2020-10-24
  * Time: 01:33
  */
+include_once "/var/www/html/config/config.php";
 
 $conf=[
     'admin'=>getenv('NEXTCLOUD_ADMIN_USER'),
@@ -26,6 +27,7 @@ php occ maintenance:install \
 --database-name={$conf['dbname']} \
 --database-user="{$conf['dbuser']}" \
 --database-pass="{$conf['dbpassword']}" \
+--database-port="{$conf['dbport']}" \
 --admin-user="{$conf['admin']}" \
 --admin-pass="{$conf['passwd']}"
 echo "Nextcloud version:" 
