@@ -1,3 +1,5 @@
+![Docker](https://github.com/scjtqs/nextcloud-docker/workflows/Docker/badge.svg)
+
 ## 开始使用
 > git clone https://github.com/scjtqs/nextcloud-docker.git nextcloud-docker
 
