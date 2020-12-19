@@ -37,7 +37,7 @@ services:
 
   nextcloud_web:
 #   arm64的机器 换成 scjtqs/nextcloud:arm64
-    image: scjtqs/nextcloud:latest
+    image: scjtqs/nextcloud:v18-latest
     container_name: nextcloud_web
     hostname: nextcloud_web
     depends_on:
@@ -62,7 +62,8 @@ services:
       - NEXTCLOUD_ADMIN_PASSWORD=admin
       - REDIS_HOST=redis
       - REDIS_HOST_PORT=6379
-      - REDIS_HOST_PASSWORD=
+      - REDIS_HOST_PASSWORD=P4ss0rd
+      - NEXTCLOUD_UPDATE=1
     ports:
       - 9080:80/tcp
       #bt 穿透
@@ -82,6 +83,7 @@ services:
     image: redis:alpine
     container_name: nextcloud_redis
     hostname: redis
+    command: --requirepass "P4ss0rd"
     restart: always
     networks:
       - cloud_net
