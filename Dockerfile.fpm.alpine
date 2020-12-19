@@ -54,6 +54,8 @@ RUN set -ex; \
         aria2 \
         py3-pip \
         bash \
+        wget \
+        curl \
         ; \
         pip3 install youtube-dl; \
         echo '*/5 * * * * php -f /var/www/html/cron.php \r\n' >> /var/spool/cron/crontabs/root; \
