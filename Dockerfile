@@ -57,6 +57,7 @@ RUN mkdir -p \
 
 COPY supervisord.conf /
 COPY a2-tracker.sh /
+COPY toucha2.sh /
 
 RUN apt-get update; \
         apt-get install -y --no-install-recommends \
