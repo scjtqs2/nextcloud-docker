@@ -3,6 +3,8 @@
 > 添加 NEXTCLOUD_UPDATE=1 环境变量，用于初始化nextcloud文件夹以及自动升级,
 >
 >不想nextcloud版本随镜像升级，NEXTCLOUD_UPDATE=0 即可
+>
+> 新版本需要在redis中添加密码，查看最新的docekr-compose.yml中的redis和nc部分即可
 ## 开始使用
 > git clone https://github.com/scjtqs/nextcloud-docker.git nextcloud-docker
 
