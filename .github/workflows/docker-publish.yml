@@ -4,7 +4,7 @@ on:
   push:
     # Publish `master` as Docker `latest` image.
     branches:
-      - master
+      - v19
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -13,7 +13,7 @@ on:
   # Run tests for any PRs.
   pull_request:
        branches:
-        - master
+        - v19
   
   schedule:
     - cron: "0 2 * * *"  
@@ -40,26 +40,26 @@ jobs:
             docker build . --file Dockerfile
           fi
 
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
-  push0:
-    # Ensure test job passes before pushing image.
-    needs: test
-
-    runs-on: ubuntu-latest
-    #    if: github.event_name == 'push'
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
-
-      - name: Log into registry
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-
-      - name: Push image
-        run: docker push $IMAGE_NAME
+#  # Push image to GitHub Packages.
+#  # See also https://docs.docker.com/docker-hub/builds/
+#  push0:
+#    # Ensure test job passes before pushing image.
+#    needs: test
+#
+#    runs-on: ubuntu-latest
+#    #    if: github.event_name == 'push'
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Build image
+#        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+#
+#      - name: Log into registry
+#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+#
+#      - name: Push image
+#        run: docker push $IMAGE_NAME
 
 
   push1:
