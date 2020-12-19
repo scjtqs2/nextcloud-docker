@@ -12,6 +12,11 @@
 
 > docker-compose up -d
 
+## occ使用
+> 升级到 v19之后，occ web无法使用了，需要使用命令行来操作occ
+>
+> docker exec -u 33 nextcloud_web php occ
+
 ## 薪资fpm-alpine版本
 
 > 使用 docker-compose-fpm.yml
