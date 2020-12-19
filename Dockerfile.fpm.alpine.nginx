@@ -1,4 +1,4 @@
-FROM scjtqs/nextcloud:alpine
+FROM scjtqs/nextcloud:v19-alpine
 
 
 RUN mkdir /nextcloud
