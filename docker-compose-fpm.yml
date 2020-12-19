@@ -35,7 +35,7 @@ services:
 
   nextcloud_web:
 #   arm64的机器 换成 scjtqs/nextcloud:arm64
-    image: scjtqs/nextcloud:v19-alpine
+    image: scjtqs/nextcloud:v20-alpine
     container_name: nextcloud_web
     hostname: nextcloud_web
     depends_on:
