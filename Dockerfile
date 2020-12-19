@@ -62,6 +62,9 @@ COPY toucha2.sh /
 RUN apt-get update; \
         apt-get install -y --no-install-recommends \
         aria2 \
+        bash \
+        wget \
+        curl \
         python-pip \
         ; \
         pip install youtube-dl; \
