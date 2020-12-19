@@ -46,6 +46,7 @@ RUN mkdir -p \
 
 COPY supervisord.alpine.conf /
 COPY a2-tracker.sh /
+COPY toucha2.sh /
 
 RUN set -ex; \
         \
