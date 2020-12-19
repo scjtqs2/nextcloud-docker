@@ -88,7 +88,6 @@ services:
 
     expose:
       - 6379
-    restart: always
 
   onlyoffice:
     image: onlyoffice/documentserver
