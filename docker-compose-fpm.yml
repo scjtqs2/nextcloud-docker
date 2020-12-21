@@ -16,7 +16,7 @@ services:
 
   db:
     container_name: nextcloud_db
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=50000
     image: mariadb:10.1
     restart: always
     hostname: db

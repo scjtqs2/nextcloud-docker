@@ -5,6 +5,17 @@
 >不想nextcloud版本随镜像升级，NEXTCLOUD_UPDATE=0 即可
 >
 > 新版本需要在redis中添加密码，查看最新的docekr-compose.yml中的redis和nc部分即可
+## 解决切换系统后uid/gid不一致导致权限问题（例如apache容器切alpine的php-fpm容器)
+> 进入 nc的容器
+>
+> docker exec -it nextcloud_web /bin/bash
+>
+> chown -R www-data /var/www/html
+>
+> chown -R www-data /nextcloud
+>
+> 这样就会更新成最新的uid和gid了。
+
 ## 开始使用
 > git clone https://github.com/scjtqs/nextcloud-docker.git nextcloud-docker
 
