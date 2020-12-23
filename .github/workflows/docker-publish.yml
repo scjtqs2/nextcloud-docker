@@ -229,3 +229,57 @@ jobs:
 
       - name: buildx-alpine-nginx
         run: ./build_multi_alpine_nginx.sh
+
+
+  push_master-1:
+    # Ensure test job passes before pushing image.
+    needs: test
+
+    runs-on: ubuntu-latest
+    #    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'master'
+
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: buildx
+        run: ./build_multi.sh
+
+  push_master-2:
+    # Ensure test job passes before pushing image.
+    needs: test
+
+    runs-on: ubuntu-latest
+    #    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'master'
+
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: buildx-alpine
+        run: ./build_multi_alpine.sh
+
+  push_master-3:
+    # Ensure test job passes before pushing image.
+    needs: push_v20-2
+
+    runs-on: ubuntu-latest
+    #    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'master'
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: buildx-alpine-nginx
+        run: ./build_multi_alpine_nginx.sh
