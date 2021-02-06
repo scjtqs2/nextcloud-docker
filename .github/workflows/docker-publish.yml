@@ -269,7 +269,7 @@ jobs:
 
   push_master-3:
     # Ensure test job passes before pushing image.
-    needs: push_v20-2
+    needs: push_master-2
 
     runs-on: ubuntu-latest
     #    if: github.event_name == 'push'
