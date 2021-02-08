@@ -146,3 +146,5 @@ location / {
 > 地址：`registry.cn-hangzhou.aliyuncs.com/scjtqs/nextcloud:[镜像版本号]`
 >
 > 使用方法：将 `scjtqs/nextcloud:[镜像版本号]` 替换成 `registry.cn-hangzhou.aliyuncs.com/scjtqs/nextcloud:[镜像版本号]` 使用即可
+>
+> 拉取方法： `sudo docker pull registry.cn-hangzhou.aliyuncs.com/scjtqs/nextcloud:[镜像版本号]`
