@@ -140,3 +140,9 @@ location / {
 > 3、docker-compose up -d 启动服务
 >
 > 3、docker image prune 删除旧的镜像
+
+# 国内镜像地址
+
+> 地址：`registry.cn-hangzhou.aliyuncs.com/scjtqs/nextcloud:[镜像版本号]`
+>
+> 使用方法：将 `scjtqs/nextcloud:[镜像版本号]` 替换成 `registry.cn-hangzhou.aliyuncs.com/scjtqs/nextcloud:[镜像版本号]` 使用即可
