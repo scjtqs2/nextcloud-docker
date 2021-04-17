@@ -12,6 +12,7 @@ RUN set -ex; \
         procps \
         smbclient \
         supervisor \
+        sudo \
 #       libreoffice \
     ; \
     rm -rf /var/lib/apt/lists/*
