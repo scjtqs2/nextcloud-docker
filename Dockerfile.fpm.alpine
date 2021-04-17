@@ -8,6 +8,7 @@ RUN set -ex; \
         procps \
         samba-client \
         supervisor \
+        sudo \
 #       libreoffice \
     ;
 
