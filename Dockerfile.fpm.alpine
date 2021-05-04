@@ -1,5 +1,7 @@
 FROM nextcloud:18-fpm-alpine
 
+RUN  sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+
 RUN set -ex; \
     \
     apk add --no-cache \
