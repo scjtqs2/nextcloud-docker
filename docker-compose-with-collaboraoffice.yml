@@ -95,13 +95,14 @@ services:
        - cloud_net
     ports:
       - 9980:9980
+    cap_add:
+      - MKNOD
     environment:
       - domain=nc.pi.scjtqs.com   #授权的域名，不能带端口
       - cert_domain=collabora.pi.scjtqs.com   #证书域名，不能带端口
       - username=admin   #管理员账号，后台登录用
       - password=P4ss0rd  #管理员密码，后台登录用
 #      - extra_params=--o:ssl.enable=false  #不开启这个的话，9980端口就是https的
-    privileged: true
 
 
 networks:
