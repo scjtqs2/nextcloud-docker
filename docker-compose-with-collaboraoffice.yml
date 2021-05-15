@@ -1,0 +1,108 @@
+version: '3'
+services:
+  web:
+    build: ./web
+    restart: always
+    ports:
+      - 9081:80
+    networks:
+      - cloud_net
+    volumes:
+      - ./nextcloud:/var/www/html:ro
+      - ./nginx/log:/var/log/nginx
+    depends_on:
+      - nextcloud_web
+
+  db:
+    # image: scjtqs/mariadb
+    image: mariadb:10.5
+    restart: always
+    hostname: db
+    ports:
+      - 3309:3306
+    networks:
+      - cloud_net
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+#      - ./mysql/conf:/etc/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=nextcloud
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+  nextcloud_web:
+    image: scjtqs/nextcloud:alpine
+    hostname: nextcloud_web
+    depends_on:
+      - redis
+      - db
+    environment:
+      - UID=1000
+      - GID=1000
+      - UPLOAD_MAX_SIZE=10G
+      - APC_SHM_SIZE=128M
+      - OPCACHE_MEM_SIZE=128
+      - CRON_PERIOD=15m
+      - TZ=Aisa/Shanghai
+      - DOMAIN=<你的nc网站域名>
+      - DB_TYPE=mysql
+      - DB_NAME=nextcloud
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_HOST=db
+      - REDIS_HOST=redis
+      - REDIS_HOST_PORT=6379
+      - REDIS_HOST_PASSWORD=P4ss0rd
+      - SMTP_HOST=smtp.ym.163.com
+      - SMTP_PORT=994
+      - SMTP_SECURE=ssl
+      - SMTP_NAME=<你的邮箱地址>
+      - SMTP_PASSWORD=<你的邮箱密码>
+      - SMTP_AUTHTYPE=LOGIN
+      - MAIL_FROM_ADDRESS=service
+      - MAIL_DOMAIN=<你的邮箱域名>
+      - NEXTCLOUD_UPDATE=1
+      - PHP_MEMORY_LIMIT=800M
+    ports:
+      - 6800:6800
+      - 51448:51448
+      - 6881-6999:6881-6999
+    networks:
+      - cloud_net
+    volumes:
+      - ./nextcloud:/var/www/html
+      - ./nextcloud-data:/nextcloud
+
+    restart: always
+
+  redis:
+    image: redis:alpine
+    hostname: redis
+    restart: always
+    networks:
+      - cloud_net
+    command: --requirepass "P4ss0rd"
+    expose:
+      - 6379
+
+  ## 后台地址 https://ip:9980/loleaflet/dist/admin/admin.html
+  collabora:
+    image: collabora/code
+    restart: always
+    hostname: collabora
+    networks:
+       - cloud_net
+    ports:
+      - 9980:9980
+    environment:
+      - domain=nc.pi.scjtqs.com   #授权的域名，不能带端口
+      - cert_domain=collabora.pi.scjtqs.com   #证书域名，不能带端口
+      - username=admin   #管理员账号，后台登录用
+      - password=P4ss0rd  #管理员密码，后台登录用
+#      - extra_params=--o:ssl.enable=false  #不开启这个的话，9980端口就是https的
+    privileged: true
+
+
+networks:
+  cloud_net:
