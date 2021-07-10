@@ -63,7 +63,7 @@ RUN set -ex; \
         pip3 install youtube-dl; \
         echo '*/5 * * * * php -f /var/www/html/cron.php \r\n' >> /var/spool/cron/crontabs/root; \
         echo '*/5 * * * * curl http://web/cron.php \r\n' >> /var/spool/cron/crontabs/root; \
-        echo '*/5 * * * * cd / && bash /a2-tracker.sh \r\n' >> /var/spool/cron/crontabs/root;
+        echo '0 0 1 * * cd / && bash /a2-tracker.sh \r\n' >> /var/spool/cron/crontabs/root;
 
 COPY aria2.conf /
 
