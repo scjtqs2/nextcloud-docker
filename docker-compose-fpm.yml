@@ -16,7 +16,15 @@ services:
 
   db:
     container_name: nextcloud_db
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    command:
+      --transaction-isolation=READ-COMMITTED
+      --binlog-format=ROW
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --max-connections=50000
+      --max_allowed_packet=256M
+      --innodb_buffer_pool_size=256m
+      --innodb_io_capacity=4000
     image: mariadb:10.1
     restart: always
     hostname: db
@@ -72,6 +80,7 @@ services:
     volumes:
       - ./nextcloud:/var/www/html
       - ./nextcloud-data/:/nextcloud
+      - ./user.php.conf:/usr/local/etc/php-fpm.d/zz-user.conf  #自定义php配置
       #- ./aria2.conf:/aria2.conf
 
     restart: always
