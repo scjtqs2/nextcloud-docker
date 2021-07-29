@@ -1,23 +1,33 @@
 version: '3'
 services:
 
-  web:
-    build: ./web
-    restart: always
+  nginx:
+    container_name: nextcloud_nginx
+    hostname: nginx
+    image: nginx:alpine
     ports:
-      - 9080:80
+      - 800:80
+      - 8443:443
     networks:
       - cloud_net
+    restart: always
     volumes:
-      - ./nextcloud:/var/www/html:ro
+      - ./nextcloud:/usr/share/nginx/html
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./ssl:/etc/certs
       - ./nginx/log:/var/log/nginx
-    depends_on:
-      - nextcloud_web
-
   db:
     container_name: nextcloud_db
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=50000
-    image: mariadb:10.1
+    command:
+      --transaction-isolation=READ-COMMITTED
+      --binlog-format=ROW
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --max-connections=50000
+      --max_allowed_packet=256M
+      --innodb_buffer_pool_size=256m
+      --innodb_io_capacity=4000
+    image: mariadb:10.4
     restart: always
     hostname: db
     ports:
@@ -35,7 +45,7 @@ services:
 
   nextcloud_web:
 #   arm64的机器 换成 scjtqs/nextcloud:arm64
-    image: scjtqs/nextcloud:v20-alpine
+    image: scjtqs/nextcloud:latest
     container_name: nextcloud_web
     hostname: nextcloud_web
     depends_on:
@@ -63,6 +73,7 @@ services:
       - REDIS_HOST_PASSWORD=P4ss0rd
       - NEXTCLOUD_UPDATE=1
     ports:
+      - 9080:80/tcp
       #bt 穿透
       - 6801:6800
       - 51448:51448
@@ -80,13 +91,14 @@ services:
     image: redis:alpine
     container_name: nextcloud_redis
     hostname: redis
-    restart: always
     command: --requirepass "P4ss0rd"
+    restart: always
     networks:
       - cloud_net
+
     expose:
       - 6379
-  
+
 
   onlyoffice:
     image: onlyoffice/documentserver

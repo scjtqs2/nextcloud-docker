@@ -1,24 +1,30 @@
 version: '3'
 services:
 
-  nginx:
-    container_name: nextcloud_nginx
-    hostname: nginx
-    image: nginx:alpine
+  web:
+    build: ./web
+    restart: always
     ports:
-      - 800:80
-      - 8443:443
+      - 9080:80
     networks:
       - cloud_net
-    restart: always
     volumes:
-      - ./nextcloud:/usr/share/nginx/html
-      - ./nginx/conf:/etc/nginx/conf.d
-      - ./ssl:/etc/certs
+      - ./nextcloud:/var/www/html:ro
       - ./nginx/log:/var/log/nginx
+    depends_on:
+      - nextcloud_web
+
   db:
     container_name: nextcloud_db
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=50000
+    command:
+      --transaction-isolation=READ-COMMITTED
+      --binlog-format=ROW
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --max-connections=50000
+      --max_allowed_packet=256M
+      --innodb_buffer_pool_size=256m
+      --innodb_io_capacity=4000
     image: mariadb:10.1
     restart: always
     hostname: db
@@ -37,7 +43,7 @@ services:
 
   nextcloud_web:
 #   arm64的机器 换成 scjtqs/nextcloud:arm64
-    image: scjtqs/nextcloud:v20-latest
+    image: scjtqs/nextcloud:alpine
     container_name: nextcloud_web
     hostname: nextcloud_web
     depends_on:
@@ -65,7 +71,6 @@ services:
       - REDIS_HOST_PASSWORD=P4ss0rd
       - NEXTCLOUD_UPDATE=1
     ports:
-      - 9080:80/tcp
       #bt 穿透
       - 6801:6800
       - 51448:51448
@@ -75,6 +80,7 @@ services:
     volumes:
       - ./nextcloud:/var/www/html
       - ./nextcloud-data/:/nextcloud
+      - ./user.php.conf:/usr/local/etc/php-fpm.d/zz-user.conf  #自定义php配置
       #- ./aria2.conf:/aria2.conf
 
     restart: always
@@ -83,14 +89,13 @@ services:
     image: redis:alpine
     container_name: nextcloud_redis
     hostname: redis
-    command: --requirepass "P4ss0rd"
     restart: always
+    command: --requirepass "P4ss0rd"
     networks:
       - cloud_net
-
     expose:
       - 6379
-
+  
 
   onlyoffice:
     image: onlyoffice/documentserver
