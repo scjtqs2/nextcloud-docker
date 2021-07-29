@@ -162,5 +162,5 @@ docker exec -it -u www-data nextcloud_web bash
 # php occ db:convert-type [options] type username hostname database
 # type 支持 mysql，oci，pgsql，sqlite3
 # php occ db:convert-type --port="5432" --password="password" --clear-schema --all-apps pgsql username  hostname database
-php occ db:convert-type --port="5432" --password="nextcloud" --clear-schema --all-apps pgsql nextcloud  postgres nextcloud
+php occ db:convert-type --port="5432" --password="nextcloud" --clear-schema --no-interaction --all-apps pgsql nextcloud  postgres nextcloud
 ```
