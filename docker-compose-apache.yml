@@ -16,32 +16,51 @@ services:
       - ./nginx/conf:/etc/nginx/conf.d
       - ./ssl:/etc/certs
       - ./nginx/log:/var/log/nginx
-  db:
-    container_name: nextcloud_db
-    command:
-      --transaction-isolation=READ-COMMITTED
-      --binlog-format=ROW
-      --character-set-server=utf8mb4
-      --collation-server=utf8mb4_unicode_ci
-      --max-connections=50000
-      --max_allowed_packet=256M
-      --innodb_buffer_pool_size=256m
-      --innodb_io_capacity=4000
-    image: mariadb:10.4
+#  db:
+#    container_name: nextcloud_db
+#    command:
+#      --transaction-isolation=READ-COMMITTED
+#      --binlog-format=ROW
+#      --character-set-server=utf8mb4
+#      --collation-server=utf8mb4_unicode_ci
+#      --max-connections=50000
+#      --max_allowed_packet=256M
+#      --innodb_buffer_pool_size=256m
+#      --innodb_io_capacity=4000
+#    image: mariadb:10.4
+#    restart: always
+#    hostname: db
+#    ports:
+#      - 3308:3306
+#    networks:
+#      - cloud_net
+#    volumes:
+#      - ./mysql/data:/var/lib/mysql
+##      - ./mysql/conf:/etc/mysql
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_PASSWORD=nextcloud
+#      - MYSQL_DATABASE=nextcloud
+#      - MYSQL_USER=nextcloud
+
+  postgres:
+    image: postgres:alpine
     restart: always
-    hostname: db
-    ports:
-      - 3308:3306
+    environment:
+      - POSTGRES_PASSWORD=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_DB=nextcloud
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
     networks:
       - cloud_net
-    volumes:
-      - ./mysql/data:/var/lib/mysql
-#      - ./mysql/conf:/etc/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_PASSWORD=nextcloud
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1M"
+        max-file: "10"
+    expose:
+      - 5432
 
   nextcloud_web:
 #   arm64的机器 换成 scjtqs/nextcloud:arm64
@@ -60,11 +79,15 @@ services:
       - CRON_PERIOD=15m
       - TZ=Aisa/Shanghai
       - DOMAIN=cloud.scjtqs.com
-      - DB_TYPE=mysql
-      - DB_NAME=nextcloud
-      - DB_USER=root
-      - DB_PASSWORD=root
-      - DB_HOST=db
+      #      - DB_TYPE=mysql        #mysql，oci，pgsql，sqlite3
+      #      - MYSQL_DATABASE=nextcloud
+      #      - MYSQL_USER=root
+      #      - MYSQL_PASSWORD=root
+      #      - MYSQL_HOST=db
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=nextcloud
+      - POSTGRES_HOST=postgres
       - NEXTCLOUD_DATA_DIR=/nextcloud
       - NEXTCLOUD_ADMIN_USER=admin
       - NEXTCLOUD_ADMIN_PASSWORD=admin

@@ -149,8 +149,18 @@ location / {
 >
 > 拉取方法： `sudo docker pull registry.cn-hangzhou.aliyuncs.com/scjtqs/nextcloud:[镜像版本号]`
 > 
+
 # PostgreSQL 环境变量配置
 - `POSTGRES_DB` Name of the database using postgres.
 - `POSTGRES_USER` Username for the database using postgres.
 - `POSTGRES_PASSWORD` Password for the database user using postgres.
 - `POSTGRES_HOST` Hostname of the database server using postgres.
+
+# mysql 迁移到 PostgreSQL (适用于其他数据库类型迁移)
+```bash
+docker exec -it -u www-data nextcloud_web bash
+# php occ db:convert-type [options] type username hostname database
+# type 支持 mysql，oci，pgsql，sqlite3
+# php occ db:convert-type --port="5432" --password="password" --clear-schema --all-apps pgsql username  hostname database
+php occ db:convert-type --port="5432" --password="nextcloud" --clear-schema --all-apps pgsql nextcloud  postgres nextcloud
+```
