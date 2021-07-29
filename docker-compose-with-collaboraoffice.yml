@@ -32,7 +32,7 @@ services:
 #      - MYSQL_USER=nextcloud
 
   postgres:
-    image: postgres:alpine
+    image: postgres:13-alpine
     restart: always
     environment:
       - POSTGRES_PASSWORD=nextcloud

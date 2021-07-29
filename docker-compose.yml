@@ -52,7 +52,7 @@ services:
 #        max-file: "10"
 
   postgres:
-    image: postgres:alpine
+    image: postgres:13-alpine
     restart: always
     environment:
       - POSTGRES_PASSWORD=nextcloud
