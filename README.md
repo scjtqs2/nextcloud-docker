@@ -148,3 +148,9 @@ location / {
 > 使用方法：将 `scjtqs/nextcloud:[镜像版本号]` 替换成 `registry.cn-hangzhou.aliyuncs.com/scjtqs/nextcloud:[镜像版本号]` 使用即可
 >
 > 拉取方法： `sudo docker pull registry.cn-hangzhou.aliyuncs.com/scjtqs/nextcloud:[镜像版本号]`
+> 
+# PostgreSQL 环境变量配置
+- `POSTGRES_DB` Name of the database using postgres.
+- `POSTGRES_USER` Username for the database using postgres.
+- `POSTGRES_PASSWORD` Password for the database user using postgres.
+- `POSTGRES_HOST` Hostname of the database server using postgres.
