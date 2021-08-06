@@ -69,7 +69,8 @@ services:
     hostname: nextcloud_web
     depends_on:
       - redis
-      - db
+#      - db
+      - postgres
     environment:
       - UID=1000
       - GID=1000
