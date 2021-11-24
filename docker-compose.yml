@@ -11,6 +11,8 @@ services:
     volumes:
       - ./nextcloud:/var/www/html:ro
       - ./nginx/log:/var/log/nginx
+      - ./ssl/fullchain.pem:/etc/nginx/ssl/fullchain.pem    #证书
+      - ./ssl/key.pem:/etc/nginx/ssl/key.pem                #证书的key文件
     depends_on:
       - nextcloud_web
     logging:
@@ -19,90 +21,85 @@ services:
         max-size: "1M"
         max-file: "10"
 
-#  db:
-#    container_name: nextcloud_db
-#    command:
-#      --transaction-isolation=READ-COMMITTED
-#      --binlog-format=ROW
-#      --character-set-server=utf8mb4
-#      --collation-server=utf8mb4_unicode_ci
-#      --max-connections=50000
-#      --max_allowed_packet=256M
-#      --innodb_buffer_pool_size=256m
-#      --innodb_io_capacity=4000
-#    image: mariadb:10.1
-#    restart: always
-#    hostname: db
-#    ports:
-#      - 3308:3306
-#    networks:
-#      - cloud_net
-#    volumes:
-#      - ./mysql/data:/var/lib/mysql
-##      - ./mysql/conf:/etc/mysql
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=root
-#      - MYSQL_PASSWORD=nextcloud
-#      - MYSQL_DATABASE=nextcloud
-#      - MYSQL_USER=nextcloud
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-size: "1M"
-#        max-file: "10"
-
-  postgres:
-    image: postgres:13-alpine
+  db:
+    container_name: nextcloud_db
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+      --max_allowed_packet=128M
+      --sql-mode="NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+    image: mysql/mysql-server:8.0
     restart: always
-    environment:
-      - POSTGRES_PASSWORD=nextcloud
-      - POSTGRES_USER=nextcloud
-      - POSTGRES_DB=nextcloud
-    volumes:
-      - ./postgresql/data:/var/lib/postgresql/data
+    ports:
+      - 3308:3306
     networks:
       - cloud_net
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+#      - ./mysql/conf:/etc/mysql
+    environment:
+       TZ: Asia/Shanghai
+       MYSQL_ROOT_PASSWORD: ${DATABASE_MASTER_ROOT_PASSWORD}
+       MYSQL_PASSWORD: ${DATABASE_MASTER_PASSWORD}
+       MYSQL_DATABASE: ${DATABASE_MASTER_DBNAME}
+       MYSQL_USER: ${DATABASE_MASTER_USERNAME}
     logging:
       driver: "json-file"
       options:
         max-size: "1M"
         max-file: "10"
-    expose:
-      - 5432
+
+#  postgres:
+#    image: postgres:13-alpine
+#    restart: always
+#    environment:
+#      - POSTGRES_PASSWORD=nextcloud
+#      - POSTGRES_USER=nextcloud
+#      - POSTGRES_DB=nextcloud
+#    volumes:
+#      - ./postgresql/data:/var/lib/postgresql/data
+#    networks:
+#      - cloud_net
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "1M"
+#        max-file: "10"
+#    expose:
+#      - 5432
 
   nextcloud_web:
 #   arm64的机器 换成 scjtqs/nextcloud:arm64
     image: scjtqs/nextcloud:alpine
     container_name: nextcloud_web
-    hostname: nextcloud_web
     depends_on:
       - redis
       - db
     environment:
-      - UID=1000
-      - GID=1000
-      - UPLOAD_MAX_SIZE=10G
-      - APC_SHM_SIZE=128M
-      - OPCACHE_MEM_SIZE=128
-      - CRON_PERIOD=15m
-      - TZ=Aisa/Shanghai
-      - DOMAIN=cloud.scjtqs.com
-#      - DB_TYPE=mysql        #mysql，oci，pgsql，sqlite3
-#      - MYSQL_DATABASE=nextcloud
-#      - MYSQL_USER=root
-#      - MYSQL_PASSWORD=root
-#      - MYSQL_HOST=db
-      - POSTGRES_DB=nextcloud
-      - POSTGRES_USER=nextcloud
-      - POSTGRES_PASSWORD=nextcloud
-      - POSTGRES_HOST=postgres
-      - NEXTCLOUD_DATA_DIR=/nextcloud
-      - NEXTCLOUD_ADMIN_USER=admin
-      - NEXTCLOUD_ADMIN_PASSWORD=admin
-      - REDIS_HOST=redis
-      - REDIS_HOST_PORT=6379
-      - REDIS_HOST_PASSWORD=P4ss0rd
-      - NEXTCLOUD_UPDATE=1
+       UID: 1000
+       GID: 1000
+       PHP_MEMORY_LIMIT: 1G
+       PHP_UPLOAD_LIMIT: 10G
+       TZ: Aisa/Shanghai
+       NEXTCLOUD_TRUSTED_DOMAINS: "cloud.scjtqs.com 192.168.1.1"
+       MYSQL_DATABASE:  ${DATABASE_MASTER_DBNAME}
+       MYSQL_USER: ${DATABASE_MASTER_USERNAME}
+       MYSQL_PASSWORD:  ${DATABASE_MASTER_PASSWORD}
+       MYSQL_HOST: ${DATABASE_MASTER_HOST}
+#       POSTGRES_DB: nextcloud
+#       POSTGRES_USER: nextcloud
+#       POSTGRES_PASSWORD: nextcloud
+#       POSTGRES_HOST: postgres
+       NEXTCLOUD_DATA_DIR: /nextcloud
+       NEXTCLOUD_ADMIN_USER: admin
+       NEXTCLOUD_ADMIN_PASSWORD: admin
+       REDIS_HOST: ${REDIS_HOST}
+       REDIS_HOST_PORT: ${REDIS_HOST_PORT}
+       REDIS_HOST_PASSWORD: ${REDIS_HOST_PASSWORD}
+       NEXTCLOUD_UPDATE: 0
     ports:
       #bt 穿透
       - 6801:6800
@@ -127,7 +124,7 @@ services:
     container_name: nextcloud_redis
     hostname: redis
     restart: always
-    command: --requirepass "P4ss0rd"
+    command: --requirepass "${REDIS_HOST_PASSWORD}"
     networks:
       - cloud_net
     expose:
@@ -142,9 +139,9 @@ services:
     image: onlyoffice/documentserver
     container_name: nextcloud_onlyoffice
     hostname: onlyoffice
-    environment:
-      - REDIS_SERVER_HOST=redis
-      - REDIS_SERVER_PORT=6379
+#    environment:
+#       REDIS_SERVER_HOST: ${REDIS_HOST}
+#       REDIS_SERVER_PORT: ${REDIS_HOST_PORT}
     volumes:
       - ./onlyoffice/data:/var/www/onlyoffice/Data
       - ./onlyoffice/logs:/var/log/onlyoffice
