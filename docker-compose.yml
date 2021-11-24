@@ -14,6 +14,7 @@ services:
       - ./nginx/log:/var/log/nginx
       - ./ssl/fullchain.pem:/etc/nginx/ssl/fullchain.pem    #证书
       - ./ssl/key.pem:/etc/nginx/ssl/key.pem                #证书的key文件
+      - ./ssl/dhparam.pem:/etc/nginx/ssl/dhparam.pem        #请自行用 `openssl dhparam -out dhparam.pem 4096` 生成
     depends_on:
       - nextcloud_web
     logging:
