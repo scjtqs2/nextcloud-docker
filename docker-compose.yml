@@ -102,7 +102,7 @@ services:
        REDIS_HOST: ${REDIS_HOST}
        REDIS_HOST_PORT: ${REDIS_HOST_PORT}
        REDIS_HOST_PASSWORD: ${REDIS_HOST_PASSWORD}
-       NEXTCLOUD_UPDATE: 0
+       NEXTCLOUD_UPDATE: 1
     ports:
       #bt 穿透
       - 6801:6800
