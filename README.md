@@ -1,4 +1,4 @@
-![Docker](https://github.com/scjtqs/nextcloud-docker/workflows/Docker/badge.svg)
+![Docker](https://github.com/scjtqs2/nextcloud-docker/workflows/Docker/badge.svg)
 ## 升级事项
 > 添加 NEXTCLOUD_UPDATE=1 环境变量，用于初始化nextcloud文件夹以及自动升级,
 >
@@ -17,20 +17,20 @@
 > 这样就会更新成最新的uid和gid了。
 
 ## 开始使用
-> git clone https://github.com/scjtqs/nextcloud-docker.git nextcloud-docker
-
-> cd nextcloud-docker
-
-> docker-compose up -d
+> `git clone https://github.com/scjtqs2/nextcloud-docker.git nextcloud-docker`
+>
+> `cd nextcloud-docker`
+> 
+> 修改 .env文件。 修改里面的配置为你自己的配置 
+>
+> `docker-compose up -d` 后台会开始静默安装
+> 
+> `docker-compose logs -f` 查看docker的运行日志。
 
 ## occ使用
 > 升级到 v19之后，occ web无法使用了，需要使用命令行来操作occ
 >
 > docker exec --user www-data nextcloud_web php occ
-
-## 薪资fpm-alpine版本
-
-> 使用 docker-compose-fpm.yml
 
 ## 使用http代理 fq
 
@@ -82,42 +82,8 @@
 
 > nginx 的反向代理配置需要自己写了，我这里就没有预制了。
 
-## 关于使用 nginx 反向代理nextcloud自带的apache并对外使用https的一些建议：
 
-需要在nextcloud/config/config.php加入一个https跳转
 
-> `'overwriteprotocol' => 'https',`
-
-以及如下部分
-
-> `'overwrite.cli.url' => 'https://your.domain.com:8443',`//此处写上完整的对外域名
-
-### nginx 反向代理的部分片段
-````nginx
-   location = /.well-known/carddav {
-      return 301 $scheme://$host:$server_port/remote.php/dav;
-    }
-    location = /.well-known/caldav {
-      return 301 $scheme://$host:$server_port/remote.php/dav;
-    }
-location / {
-        proxy_http_version 1.1;
-        proxy_redirect off;
-        proxy_pass http://182.168.50.127:9080/;
-        proxy_set_header   Host $host;
-        proxy_set_header   X-Real-IP $remote_addr;
-        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header   X-Forwarded-Host $server_name;
-        proxy_set_header   X-Forwarded-Proto https;
-	proxy_set_header Upgrade $http_upgrade;
-        access_log      /var/log/nginx/nextcloud.access.log;
-        error_log       /var/log/nginx/nextcloud.error.log;
-        proxy_read_timeout  120s;
-        client_max_body_size 512M;
-        proxy_request_buffering off;
- }
-
-````
 # 更新aria2c的bt-tracker
 > cd nextcloud-docker
 >
