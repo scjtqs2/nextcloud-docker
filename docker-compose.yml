@@ -6,7 +6,7 @@ services:
     restart: always
     ports:
       - 9080:80
-      - 8777：8777
+      - 8777:8777
     networks:
       - cloud_net
     volumes:
