@@ -12,7 +12,7 @@ services:
     volumes:
       - ./nextcloud:/var/www/html:ro
       - ./nginx/log:/var/log/nginx
-      - ./ssl/fullchain.pem:/etc/nginx/ssl/fullchain.pem    #证书
+      - ./ssl/fullchain.pem:/etc/nginx/ssl/fullchain.pem    #证书 保证容器内部的文件名不变就行。cer、crt证书也映射成pem
       - ./ssl/key.pem:/etc/nginx/ssl/key.pem                #证书的key文件
       - ./ssl/dhparam.pem:/etc/nginx/ssl/dhparam.pem        #请自行用 `openssl dhparam -out dhparam.pem 4096` 生成
     depends_on:
@@ -54,10 +54,10 @@ services:
         max-size: "1M"
         max-file: "10"
 
-  nextcloud_web:
+  nextcloud_app:
 #   arm64的机器 换成 scjtqs/nextcloud:arm64
     image: scjtqs/nextcloud:alpine
-    container_name: nextcloud_web
+    container_name: nextcloud_app
     depends_on:
       - redis
       - db

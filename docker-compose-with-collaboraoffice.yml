@@ -74,9 +74,9 @@ services:
 #    expose:
 #      - 5432
 #
-  nextcloud_web:
+  nextcloud_app:
     image: scjtqs/nextcloud:alpine
-    hostname: nextcloud_web
+    hostname: nextcloud_app
     depends_on:
       - redis
       - db
@@ -86,7 +86,7 @@ services:
       PHP_MEMORY_LIMIT: 1G
       PHP_UPLOAD_LIMIT: 10G
       TZ: Aisa/Shanghai
-      NEXTCLOUD_TRUSTED_DOMAINS: "cloud.scjtqs.com 192.168.1.1"
+      NEXTCLOUD_TRUSTED_DOMAINS: "${NEXTCLOUD_TRUSTED_DOMAINS}"
       MYSQL_DATABASE:  ${DATABASE_MASTER_DBNAME}
       MYSQL_USER: ${DATABASE_MASTER_USERNAME}
       MYSQL_PASSWORD:  ${DATABASE_MASTER_PASSWORD}
@@ -96,8 +96,8 @@ services:
       #       POSTGRES_PASSWORD: nextcloud
       #       POSTGRES_HOST: postgres
       NEXTCLOUD_DATA_DIR: /nextcloud
-      NEXTCLOUD_ADMIN_USER: admin
-      NEXTCLOUD_ADMIN_PASSWORD: admin
+      NEXTCLOUD_ADMIN_USER: ${NEXTCLOUD_ADMIN_USER}
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD}
       REDIS_HOST: ${REDIS_HOST}
       REDIS_HOST_PORT: ${REDIS_HOST_PORT}
       REDIS_HOST_PASSWORD: ${REDIS_HOST_PASSWORD}

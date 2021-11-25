@@ -22,10 +22,18 @@
 > `cd nextcloud-docker`
 > 
 > 修改 .env文件。 修改里面的配置为你自己的配置 
+> 
+> `docker-compose build` 初始化nginx配置
 >
-> `docker-compose up -d` 后台会开始静默安装
+> `docker-compose run --rm db` 进行数据库的初始化。出现 `Database initialized` 标准数据库准备完毕。继续等待 `/usr/sbin/mysqld: ready for connections. Version: '8.0.xx'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  MySQL Community Server - GPL.` 。
+> 
+> 另开一个命令行窗口。`cd nextcloud-docker`目录。执行 docker-compose down 关闭mysql的初始化进程。
+> 
+> `docker-compose up -d` 后台会开始静默安装 (nginx打开会502，等待片刻即可)
 > 
 > `docker-compose logs -f` 查看docker的运行日志。
+> 
+> 
 
 ## occ使用
 > 升级到 v19之后，occ web无法使用了，需要使用命令行来操作occ
