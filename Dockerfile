@@ -60,7 +60,7 @@ RUN set -ex; \
         wget \
         curl \
         ; \
-        pip3 install youtube-dl; \
+        pip3 install -i https://pypi.douban.com/simple youtube-dl; \
         echo '*/5 * * * * php -f /var/www/html/cron.php' >> /var/spool/cron/crontabs/root; \
         echo '*/5 * * * * curl http://web/cron.php' >> /var/spool/cron/crontabs/root; \
         echo '0 0 1 * * cd / && bash /a2-tracker.sh' >> /var/spool/cron/crontabs/root;
