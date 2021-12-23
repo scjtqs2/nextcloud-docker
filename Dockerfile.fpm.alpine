@@ -1,6 +1,6 @@
-FROM nextcloud:fpm-alpine
+FROM nextcloud:21-fpm-alpine
 
-#RUN  sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+RUN  sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
 RUN set -ex; \
     \
