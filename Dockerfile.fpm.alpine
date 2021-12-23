@@ -6,7 +6,7 @@ RUN set -ex; \
     \
     apk add --no-cache \
         ffmpeg \
-#        imagemagick \
+        imagemagick \
         procps \
         samba-client \
         supervisor \
