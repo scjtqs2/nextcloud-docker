@@ -61,6 +61,7 @@ RUN set -ex; \
         curl \
         ; \
         pip3 install youtube-dl; \
+        ln -s /usr/bin/python3 /usr/bin/python; \
         echo '*/5 * * * * php -f /var/www/html/cron.php' >> /var/spool/cron/crontabs/root; \
         echo '*/5 * * * * curl http://web/cron.php' >> /var/spool/cron/crontabs/root; \
         echo '0 0 1 * * cd / && bash /a2-tracker.sh' >> /var/spool/cron/crontabs/root;
