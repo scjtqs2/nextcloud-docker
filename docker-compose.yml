@@ -86,7 +86,7 @@ services:
        NEXTCLOUD_UPDATE: 1
     ports:
       #bt 穿透
-      - 6801:6800
+      - 6800:6800
       - 51448:51448
       - 6881-6999:6881-6999
     networks:
@@ -95,7 +95,7 @@ services:
       - ./nextcloud:/var/www/html
       - ./nextcloud-data/:/nextcloud
       - ./user.php.conf:/usr/local/etc/php-fpm.d/zz-user.conf  #自定义php配置
-      #- ./aria2.conf:/aria2.conf
+      - ./aria2.conf:/aria2.conf
     restart: always
     logging:
       driver: "json-file"
