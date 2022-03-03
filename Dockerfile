@@ -65,6 +65,7 @@ RUN set -ex; \
         wget \
         curl \
         unrar-free \
+        p7zip p7zip-full \
         ; \
         rm -rf /var/lib/apt/lists/* \
         ; \

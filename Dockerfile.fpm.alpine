@@ -59,6 +59,7 @@ RUN set -ex; \
         bash \
         wget \
         curl \
+        p7zip \
         ; \
         pip3 install youtube-dl; \
         ln -s /usr/bin/python3 /usr/bin/python; \
