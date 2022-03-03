@@ -40,6 +40,11 @@
 >
 > docker exec --user www-data nextcloud_web php occ
 
+### 使用occ来安装nextcloud
+> `docker exec  -u www-data nextcloud_app php occ  maintenance:install --admin-user=admin --admin-pass=admin`
+>
+> 其他参数 请使用 `docker exec  -u www-data nextcloud_app php occ help maintenance:install` 来查看
+
 ## 使用http代理 fq
 
 > 在 config.php里面加入一行：
