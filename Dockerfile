@@ -6,7 +6,7 @@ RUN set -ex; \
     \
     apk add --no-cache \
         ffmpeg \
-#        imagemagick \
+        imagemagick \
         procps \
         samba-client \
         supervisor \
@@ -59,6 +59,7 @@ RUN set -ex; \
         bash \
         wget \
         curl \
+        unrar \
         ; \
         pip3 install youtube-dl; \
         ln -s /usr/bin/python3 /usr/bin/python; \
