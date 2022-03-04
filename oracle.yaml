@@ -1,0 +1,10 @@
+image: scjtqs/nextcloud:oracle
+manifests:
+  - image: scjtqs/nextcloud:oracle_amd64
+    platform:
+      architecture: amd64
+      os: linux
+  - image: scjtqs/nextcloud:oracle_aarch64
+    platform:
+      architecture: arm64
+      os: linux

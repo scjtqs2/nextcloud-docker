@@ -58,15 +58,15 @@ RUN set -ex; \
                 libaio* \
                 wget \
         ; \
-         wget https://download.oracle.com/otn_software/linux/instantclient/1914000/instantclient-basic-linux.x64-19.14.0.0.0dbru.zip; \
-         wget https://download.oracle.com/otn_software/linux/instantclient/1914000/instantclient-sdk-linux.x64-19.14.0.0.0dbru.zip; \
+         wget https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-basic-linux.arm64-19.10.0.0.0dbru.zip; \
+         wget https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-sdk-linux.arm64-19.10.0.0.0dbru.zip; \
          mkdir -p /usr/local/webserver/oracle; \
          mv instantclient-* /usr/local/webserver/oracle; \
          cd /usr/local/webserver/oracle; \
-         unzip instantclient-basic-linux.x64-19.14.0.0.0dbru.zip; \
-         unzip instantclient-sdk-linux.x64-19.14.0.0.0dbru.zip; \
+         unzip instantclient-basic-linux.arm64-19.10.0.0.0dbru.zip; \
+         unzip instantclient-sdk-linux.arm64-19.10.0.0.0dbru.zip; \
          rm -rf *.zip; \
-         mv instantclient_19_14 instantclient; \
+         mv instantclient_19_10 instantclient; \
          cd instantclient; \
          ln -s /usr/local/webserver/oracle/instantclient/ /usr/local/webserver/oracle/instantclient/lib; \
          mkdir -p include/oracle/11.1; \

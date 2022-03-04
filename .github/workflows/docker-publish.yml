@@ -4,7 +4,7 @@ on:
   push:
     # Publish `master` as Docker `latest` image.
     branches:
-      - master
+      - oracle
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -12,11 +12,11 @@ on:
 
   # Run tests for any PRs.
   pull_request:
-       branches:
-        - master
-  
+    branches:
+      - master
+
   schedule:
-    - cron: "0 2 * * *"  
+    - cron: "0 2 * * *"
 
   workflow_dispatch:
     inputs:
@@ -26,11 +26,11 @@ on:
         default: 'Mona the Octocat'
 
   check_suite:
-    types: [rerequested, completed]
+    types: [ rerequested, completed ]
 
 env:
   # TODO: Change variable to your image's name.
-  IMAGE_NAME: scjtqs/nextcloud:adm64
+  IMAGE_NAME: scjtqs/nextcloud:amd64
 
 jobs:
   # Run tests.
@@ -50,215 +50,7 @@ jobs:
             docker build . --file Dockerfile
           fi
 
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
-#  push0:
-#    # Ensure test job passes before pushing image.
-#    needs: test
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Build image
-#        run: docker build . --file Dockerfile --tag $IMAGE_NAME
-#
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Push image
-#        run: docker push $IMAGE_NAME
-
-
-#  push_v18-1:
-#    # Ensure test job passes before pushing image.
-#    needs: test
-#
-#    runs-on: ubuntu-latest
-##    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#           ref: 'v18'
-#
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Log into aliyun
-#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx
-#        run: ./build_multi.sh
-#
-#  push_v18-2:
-#    # Ensure test job passes before pushing image.
-#    needs: test
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: 'v18'
-#
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Log into aliyun
-#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx-alpine
-#        run: ./build_multi_alpine.sh
-#  push_v18-3:
-#    # Ensure test job passes before pushing image.
-#    needs: push_v18-2
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: 'v18'
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Log into aliyun
-#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx-alpine-nginx
-#        run: ./build_multi_alpine_nginx.sh
-
-
-#  push_v19-1:
-#    # Ensure test job passes before pushing image.
-#    needs: test
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: 'v19'
-#
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Log into aliyun
-#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx
-#        run: ./build_multi.sh
-#
-#  push_v19-2:
-#    # Ensure test job passes before pushing image.
-#    needs: test
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: 'v19'
-#
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Log into aliyun
-#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx-alpine
-#        run: ./build_multi_alpine.sh
-#  push_v19-3:
-#    # Ensure test job passes before pushing image.
-#    needs: push_v19-2
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: 'v19'
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Log into aliyun
-#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx-alpine-nginx
-#        run: ./build_multi_alpine_nginx.sh
-
-#  push_v20-1:
-#    # Ensure test job passes before pushing image.
-#    needs: test
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: 'v20'
-#
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Log into aliyun
-#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx
-#        run: ./build_multi.sh
-#
-#  push_v20-2:
-#    # Ensure test job passes before pushing image.
-#    needs: test
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: 'v20'
-#
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Log into aliyun
-#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx-alpine
-#        run: ./build_multi_alpine.sh
-
-#  push_v20-3:
-#    # Ensure test job passes before pushing image.
-#    needs: push_v20-2
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: 'v20'
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
-#      - name: Log into aliyun
-#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx-alpine-nginx
-#        run: ./build_multi_alpine_nginx.sh
-
-
-  push_master-1:
+  amd64:
     # Ensure test job passes before pushing image.
     needs: test
 
@@ -268,18 +60,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: 'master'
+          ref: 'oracle'
 
       - name: Log into registry
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      - name: Log into aliyun
-        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
+#      - name: Log into aliyun
+#        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
 
-      - name: buildx
+      - name: build amd64
         run: ./build_multi.sh
 
-  push_master-2:
+  aarch64:
     # Ensure test job passes before pushing image.
     needs: test
 
@@ -289,33 +81,35 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: 'master'
+          ref: 'oracle'
 
       - name: Log into registry
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      - name: Log into aliyun
-        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-
-      - name: buildx-alpine
-        run: ./build_multi_alpine.sh
-
-#  push_master-3:
-#    # Ensure test job passes before pushing image.
-#    needs: push_master-2
-#
-#    runs-on: ubuntu-latest
-#    #    if: github.event_name == 'push'
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          ref: 'master'
-#      - name: Log into registry
-#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-#
 #      - name: Log into aliyun
 #        run: echo "${{ secrets.DOCKER_PASSWORD2 }}" | docker login  -u ${{ secrets.DOCKER_USERNAME2 }} --password-stdin registry.cn-hangzhou.aliyuncs.com
-#
-#      - name: buildx-alpine-nginx
-#        run: ./build_multi_alpine_nginx.sh
+
+      - name: build aarch64
+        run: ./build_multi_alpine.sh
+
+  mainfest-tool:
+
+    needs:
+      - amd64
+      - aarch64
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'oracle'
+
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login  -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: mainfest push
+        run: |
+          wget https://github.com/estesp/manifest-tool/releases/download/v2.0.0/binaries-manifest-tool-2.0.0.tar.gz
+          tar -zxvf binaries-manifest-tool-2.0.0.tar.gz
+          ./manifest-tool-linux-amd64 --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }} push from-spec oracle.yaml
+
