@@ -29,6 +29,7 @@ RUN set -ex; \
     docker-php-ext-install \
         bz2 \
         imap \
+        opcache \
     ; \
     pecl install smbclient; \
     docker-php-ext-enable smbclient; \
