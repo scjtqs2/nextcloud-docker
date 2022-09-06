@@ -1,4 +1,4 @@
-FROM nextcloud:fpm
+FROM nextcloud:apache
 
 RUN set -ex; \
     \
@@ -29,6 +29,7 @@ RUN set -ex; \
     docker-php-ext-install \
         bz2 \
         imap \
+        opcache \
     ; \
     pecl install smbclient; \
     docker-php-ext-enable smbclient; \
@@ -52,7 +53,7 @@ RUN mkdir -p \
     /var/run/supervisord \
 ;
 
-COPY supervisord.alpine.conf /
+COPY supervisord.conf /
 COPY a2-tracker.sh /
 COPY toucha2.sh /
 
@@ -70,14 +71,11 @@ RUN set -ex; \
         rm -rf /var/lib/apt/lists/* \
         ; \
         pip3 install youtube-dl; \
-        ln -s /usr/bin/python3 /usr/bin/python; \
-        echo '*/5 * * * * php -f /var/www/html/cron.php' >> /var/spool/cron/crontabs/root; \
-        echo '*/5 * * * * curl http://web/cron.php' >> /var/spool/cron/crontabs/root; \
-        echo '0 0 1 * * cd / && bash /a2-tracker.sh' >> /var/spool/cron/crontabs/root;
+        ln -s /usr/bin/python3 /usr/bin/python;
 
 COPY aria2.conf /
 # 使用生产环境的php.ini    /usr/local/etc/php/php.ini
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 ENV NEXTCLOUD_UPDATE=1
 
-CMD ["/usr/bin/supervisord", "-c", "/supervisord.alpine.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
