@@ -5,6 +5,7 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         ffmpeg \
+        ghostscript \
         libmagickcore-6.q16-6-extra \
         procps \
         smbclient \
@@ -29,7 +30,6 @@ RUN set -ex; \
     docker-php-ext-install \
         bz2 \
         imap \
-        opcache \
     ; \
     pecl install smbclient; \
     docker-php-ext-enable smbclient; \
@@ -38,9 +38,9 @@ RUN set -ex; \
     apt-mark auto '.*' > /dev/null; \
     apt-mark manual $savedAptMark; \
     ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
-        | awk '/=>/ { print $3 }' \
+        | awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) { next }; gsub("^/(usr/)?", "", so); print so }' \
         | sort -u \
-        | xargs -r dpkg-query -S \
+        | xargs -r dpkg-query --search \
         | cut -d: -f1 \
         | sort -u \
         | xargs -rt apt-mark manual; \
@@ -70,8 +70,7 @@ RUN set -ex; \
         ; \
         rm -rf /var/lib/apt/lists/* \
         ; \
-        pip3 install --break-system-packages youtube-dl; \
-        ln -s /usr/bin/python3 /usr/bin/python;
+        pip3 install --break-system-packages youtube-dl;
 
 COPY aria2.conf /
 # 使用生产环境的php.ini    /usr/local/etc/php/php.ini

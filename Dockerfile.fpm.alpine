@@ -29,7 +29,6 @@ RUN set -ex; \
     docker-php-ext-install \
         bz2 \
         imap \
-        opcache \
     ; \
     pecl install smbclient; \
     docker-php-ext-enable smbclient; \
@@ -63,7 +62,6 @@ RUN set -ex; \
         p7zip \
         ; \
         pip3 install --break-system-packages youtube-dl; \
-        ln -s /usr/bin/python3 /usr/bin/python; \
         ln -s /usr/bin/youtube-dl /usr/local/bin/youtube-dl;
 
 COPY aria2.conf /
