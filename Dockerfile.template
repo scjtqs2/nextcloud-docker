@@ -70,7 +70,7 @@ RUN set -ex; \
         ; \
         rm -rf /var/lib/apt/lists/* \
         ; \
-        pip3 install youtube-dl; \
+        pip3 install --break-system-packages youtube-dl; \
         ln -s /usr/bin/python3 /usr/bin/python;
 
 COPY aria2.conf /
