@@ -28,8 +28,8 @@ for LATEST in "${no_match_tags[@]}"; do
     sed -i "s/%%VARIANT%%/${LATEST}/g" Dockerfile.fpm.alpine
     docker login --username ${DOCKER_NAME} --password ${DOCKER_PASSWORD}
 #    docker buildx create --use --name mybuilder
-    docker buildx build --tag scjtqs/nextcloud:${LATEST} --platform linux/amd64,linux/arm64  --push  . || exit 2
-    docker buildx build --tag scjtqs/nextcloud:${LATEST}-alpine --platform linux/amd64,linux/arm64  --push -f Dockerfile.fpm.alpine . || exit 3
+    docker buildx build --tag scjtqs/nextcloud:${LATEST} --platform linux/amd64,linux/arm64,linux/arm/v7 --push  . || exit 2
+    docker buildx build --tag scjtqs/nextcloud:${LATEST}-alpine --platform linux/amd64,linux/arm64,linux/arm/v7  --push -f Dockerfile.fpm.alpine . || exit 3
 #    docker buildx rm mybuilder
 
     git add latest
