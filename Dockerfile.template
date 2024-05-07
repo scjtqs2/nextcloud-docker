@@ -70,8 +70,7 @@ RUN set -ex; \
         ; \
         rm -rf /var/lib/apt/lists/* \
         ; \
-        pip3 install --break-system-packages youtube-dl; \
-        ln -s /usr/bin/python3 /usr/bin/python;
+        pip3 install --break-system-packages youtube-dl;
 
 COPY aria2.conf /
 # 使用生产环境的php.ini    /usr/local/etc/php/php.ini

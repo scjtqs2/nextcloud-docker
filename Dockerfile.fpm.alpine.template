@@ -63,7 +63,6 @@ RUN set -ex; \
         p7zip \
         ; \
         pip3 install --break-system-packages youtube-dl; \
-        ln -s /usr/bin/python3 /usr/bin/python; \
         ln -s /usr/bin/youtube-dl /usr/local/bin/youtube-dl;
 
 COPY aria2.conf /
