@@ -57,6 +57,7 @@ jobs:
           docker buildx build --tag scjtqs/nextcloud:alpine --platform linux/amd64,linux/arm64  --push -f Dockerfile.fpm.alpine . || exit 1
           sudo git fetch --tags && ./a2-tracker.sh && ./check-version.sh && ./build.sh
           sudo git push --tags https://scjtqs2:{{secrets.GITHUB_TOKEN}}@github.com/scjtqs2/nextcloud-docker.git
+          sudo git checkout -- ./Dockerfile.fpm.alpine && sudo git checkout -- ./Dockerfile
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
