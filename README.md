@@ -5,6 +5,8 @@
 >不想nextcloud版本随镜像升级，NEXTCLOUD_UPDATE=0 即可
 >
 > 新版本需要在redis中添加密码，查看最新的docekr-compose.yml中的redis和nc部分即可
+> 
+> 非alpine的镜像是基于apache的。alpine的镜像是fpm-alpine的，需要nginx配合。
 ## 解决切换系统后uid/gid不一致导致权限问题（例如apache容器切alpine的php-fpm容器)
 > 进入 nc的容器
 >

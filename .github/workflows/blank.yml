@@ -53,8 +53,9 @@ jobs:
           MAIL: ${{ secrets.MAIL }}
           MY_NAME: ${{ secrets.MY_NAME}}
         run: |
-          chmod +x check-version.sh build.sh 
-          sudo git fetch --tags && ./check-version.sh && ./build.sh
+          chmod +x check-version.sh build.sh  a2-tracker.sh
+          docker buildx build --tag scjtqs/nextcloud:alpine --platform linux/amd64,linux/arm64  --push -f Dockerfile.fpm.alpine . || exit 1
+          sudo git fetch --tags && ./a2-tracker.sh && ./check-version.sh && ./build.sh
           sudo git push --tags https://scjtqs2:{{secrets.GITHUB_TOKEN}}@github.com/scjtqs2/nextcloud-docker.git
       - name: Push changes
         uses: ad-m/github-push-action@master
