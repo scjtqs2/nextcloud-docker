@@ -1,4 +1,4 @@
-FROM nextcloud:29.0.2-fpm-alpine
+FROM nextcloud:27.1.11-fpm-alpine
 
 #RUN  sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
