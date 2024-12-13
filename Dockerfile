@@ -1,4 +1,4 @@
-FROM nextcloud:28.0.14-apache
+FROM nextcloud:30.0.4-apache
 
 RUN set -ex; \
     \
