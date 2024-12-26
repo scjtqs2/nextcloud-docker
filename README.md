@@ -1,4 +1,4 @@
-![Docker](https://github.com/scjtqs2/nextcloud-docker/workflows/Docker/badge.svg)
+![Docker](https://github.com/scjtqs2/nextcloud-docker/workflows/check-tags/badge.svg)
 ## 升级事项
 > 添加 NEXTCLOUD_UPDATE=1 环境变量，用于初始化nextcloud文件夹以及自动升级,
 >
